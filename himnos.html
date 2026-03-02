@@ -87,57 +87,93 @@
             color: #1e3c5c;
         }
         
-        /* ===== LISTA DE HIMNOS ===== */
-        .himno-lista {
-            list-style: none;
-            padding: 0;
-            max-height: 500px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
+        /* ===== BARRA DE SELECCIÓN (estilo dropdown) ===== */
+        .selector-himno {
+            margin-bottom: 20px;
+            border: 2px solid #d4af37;
             border-radius: 4px;
+            background-color: white;
         }
         
-        .himno-lista li {
-            margin: 0;
-            padding: 15px;
-            background: #f9f9f9;
-            border-bottom: 1px solid #ddd;
+        .selector-seleccion {
+            padding: 12px 15px;
+            background-color: #f9f7f4;
             cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #1e3c5c;
+            border-bottom: 2px solid #d4af37;
+        }
+        
+        .selector-seleccion::after {
+            content: "▼";
+            font-size: 0.8em;
+            color: #d4af37;
+            transition: transform 0.3s;
+        }
+        
+        .selector-abierto .selector-seleccion::after {
+            transform: rotate(180deg);
+        }
+        
+        .selector-lista {
+            max-height: 0;
+            overflow-y: auto;
+            transition: max-height 0.3s ease-out;
+            background-color: white;
+            border-radius: 0 0 4px 4px;
+        }
+        
+        .selector-abierto .selector-lista {
+            max-height: 350px;
+            border-top: 1px solid #d4af37;
+        }
+        
+        .lista-horizontal {
+            list-style: none;
+            padding: 5px 0;
+            margin: 0;
+            font-size: 0.85em;
+        }
+        
+        .lista-horizontal li {
+            padding: 8px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
             transition: background-color 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
-        .himno-lista li:hover {
+        .lista-horizontal li:hover {
             background-color: #e8e2d8;
-            border-left: 4px solid #d4af37;
+            border-left: 3px solid #d4af37;
         }
         
-        .himno-lista li.seleccionado {
+        .lista-horizontal li.seleccionado-lista {
             background-color: #d4af37;
             color: white;
             font-weight: bold;
         }
         
-        .himno-lista a {
-            text-decoration: none;
-            color: inherit;
-            font-weight: bold;
-            font-size: 1.1em;
-            display: block;
-        }
-        
-        .himno-autor {
-            font-size: 0.85em;
+        .himno-autor-pequeno {
+            font-size: 0.75em;
             color: #5a6d7c;
-            margin-top: 5px;
+            margin-left: 5px;
+            display: inline;
         }
         
-        .himno-lista li.seleccionado .himno-autor {
+        .lista-horizontal li.seleccionado-lista .himno-autor-pequeno {
             color: #1e3c5c;
         }
         
         /* ===== VISOR DE HIMNO ===== */
         .visor-himno {
-            margin-top: 30px;
+            margin-top: 20px;
             padding: 25px;
             background-color: #f9f9f9;
             border: 2px solid #d4af37;
@@ -192,34 +228,6 @@
             font-style: italic;
         }
         
-        /* ===== BOTONES DE NAVEGACIÓN ===== */
-        .nav-rapida {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-        }
-        
-        .btn-nav {
-            background-color: #1e3c5c;
-            color: white;
-            padding: 8px 20px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9em;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn-nav:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        
-        .btn-nav:hover:not(:disabled) {
-            background-color: #d4af37;
-            color: #1e3c5c;
-        }
-        
         footer {
             text-align: center;
             margin-top: 40px;
@@ -232,6 +240,7 @@
             color: #5a6d7c;
             margin: 10px 0;
             font-size: 0.9em;
+            text-align: right;
         }
     </style>
 </head>
@@ -251,23 +260,19 @@
         <!-- CONTADOR -->
         <div class="contador" id="contador">Mostrando 0 de 0 himnos</div>
         
-        <!-- LISTA Y VISOR -->
-        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">
-            <!-- LISTA -->
-            <div>
-                <ul class="himno-lista" id="lista-himnos"></ul>
+        <!-- SELECTOR DROPDOWN -->
+        <div class="selector-himno" id="selectorHimno">
+            <div class="selector-seleccion" onclick="toggleSelector()">
+                <span id="tituloSeleccionado">Selecciona un himno</span>
             </div>
-            
-            <!-- VISOR -->
-            <div class="visor-himno" id="visor-himno">
-                <div class="no-seleccionado">👆 Selecciona un himno de la lista</div>
+            <div class="selector-lista" id="selectorLista">
+                <ul class="lista-horizontal" id="listaHimnosDropdown"></ul>
             </div>
         </div>
         
-        <!-- NAVEGACIÓN RÁPIDA -->
-        <div class="nav-rapida">
-            <button class="btn-nav" id="btnAnterior" onclick="navegarHimno('anterior')" disabled>← Anterior</button>
-            <button class="btn-nav" id="btnSiguiente" onclick="navegarHimno('siguiente')" disabled>Siguiente →</button>
+        <!-- VISOR -->
+        <div class="visor-himno" id="visor-himno">
+            <div class="no-seleccionado">👆 Selecciona un himno de la lista</div>
         </div>
         
         <footer>
@@ -276,14 +281,14 @@
     </div>
 
     <script>
-        // ===== FUNCIÓN PARA GENERAR SLUG (a partir del título) =====
+        // ===== FUNCIÓN PARA GENERAR SLUG =====
         function generarSlug(titulo) {
             return titulo
                 .toLowerCase()
-                .replace(/[¿?¡!]/g, '')           // quitar signos de interrogación/exclamación
-                .replace(/[^a-z0-9\s-]/g, '')      // quitar otros caracteres especiales
-                .replace(/\s+/g, '-')               // espacios a guiones
-                .replace(/-+/g, '-');                // evitar guiones múltiples
+                .replace(/[¿?¡!]/g, '')
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
         }
 
         // ===== BASE DE DATOS DE HIMNOS (PRIMEROS 100) =====
@@ -9759,8 +9764,7 @@ Nos levanta cuando caemos
 Y con sus brazos nos sostendrá.`
     }
         ];
-
-        // ===== MAPA DE SLUGS PARA BÚSQUEDA RÁPIDA =====
+        // ===== MAPA DE SLUGS =====
         const mapaSlugs = {};
         himnos.forEach((himno, index) => {
             mapaSlugs[himno.slug] = index;
@@ -9769,39 +9773,89 @@ Y con sus brazos nos sostendrá.`
         // Variables de estado
         let himnosFiltrados = [...himnos];
         let himnoSeleccionado = null;
+        let selectorAbierto = false;
 
-        // Función para mostrar la lista
-        function mostrarLista() {
-            const lista = document.getElementById('lista-himnos');
-            const contador = document.getElementById('contador');
-            
+        // ===== FUNCIONES DEL DROPDOWN =====
+        function toggleSelector() {
+            selectorAbierto = !selectorAbierto;
+            const selector = document.getElementById('selectorHimno');
+            if (selectorAbierto) {
+                selector.classList.add('selector-abierto');
+                setTimeout(() => {
+                    const lista = document.getElementById('listaHimnosDropdown');
+                    const seleccionado = lista.querySelector('.seleccionado-lista');
+                    if (seleccionado) {
+                        seleccionado.scrollIntoView({ block: 'nearest' });
+                    }
+                }, 50);
+            } else {
+                selector.classList.remove('selector-abierto');
+            }
+        }
+
+        function cerrarSelector() {
+            selectorAbierto = false;
+            document.getElementById('selectorHimno').classList.remove('selector-abierto');
+        }
+
+        // ===== MOSTRAR LISTA EN DROPDOWN =====
+        function mostrarListaDropdown() {
+            const lista = document.getElementById('listaHimnosDropdown');
             lista.innerHTML = '';
             
             himnosFiltrados.forEach((himno, index) => {
+                const numReal = himnos.indexOf(himno) + 1;
                 const li = document.createElement('li');
-                const numReal = himnos.indexOf(himno) + 1; // número real en la lista completa
-                li.className = himnoSeleccionado && himno.slug === himnoSeleccionado.slug ? 'seleccionado' : '';
-                li.onclick = () => seleccionarHimno(himnosFiltrados.indexOf(himno));
-                li.innerHTML = `
-                    <a href="javascript:void(0);">${numReal}. ${himno.titulo}</a>
-                    <div class="himno-autor">${himno.autores || himno.fuente || ''}</div>
-                `;
+                li.className = himnoSeleccionado && himno.slug === himnoSeleccionado.slug ? 'seleccionado-lista' : '';
+                li.setAttribute('data-slug', himno.slug);
+                li.onclick = (e) => {
+                    e.stopPropagation();
+                    seleccionarHimno(himno.slug);
+                    cerrarSelector();
+                };
+                
+                const autorSpan = document.createElement('span');
+                autorSpan.className = 'himno-autor-pequeno';
+                autorSpan.textContent = himno.autores || himno.fuente || '';
+                
+                li.innerHTML = `${numReal}. ${himno.titulo} `;
+                li.appendChild(autorSpan);
+                
                 lista.appendChild(li);
             });
             
-            contador.textContent = `Mostrando ${himnosFiltrados.length} de ${himnos.length} himnos`;
-            actualizarBotonesNavegacion();
+            document.getElementById('contador').textContent = 
+                `Mostrando ${himnosFiltrados.length} de ${himnos.length} himnos`;
         }
 
-        // Función para seleccionar un himno
-        function seleccionarHimno(index) {
-            const himno = himnosFiltrados[index];
+        // ===== ACTUALIZAR TÍTULO EN LA BARRA =====
+        function actualizarTituloBarra() {
+            const spanTitulo = document.getElementById('tituloSeleccionado');
+            if (himnoSeleccionado) {
+                const numReal = himnos.indexOf(himnoSeleccionado) + 1;
+                spanTitulo.textContent = `${numReal}. ${himnoSeleccionado.titulo}`;
+            } else {
+                spanTitulo.textContent = 'Selecciona un himno';
+            }
+        }
+
+        // ===== SELECCIONAR HIMNO (por slug) =====
+        function seleccionarHimno(slug) {
+            const indexReal = mapaSlugs[slug];
+            if (indexReal === undefined) return;
+            
+            const himno = himnos[indexReal];
+            
+            if (!himnosFiltrados.includes(himno)) {
+                himnosFiltrados = [...himnos];
+                mostrarListaDropdown();
+            }
+            
             himnoSeleccionado = himno;
             
             const visor = document.getElementById('visor-himno');
             const numReal = himnos.indexOf(himno) + 1;
             
-            // Procesar la letra: líneas con texto = <p>, líneas vacías = separador
             const lineas = himno.letra.split('\n');
             let letraHtml = '';
             lineas.forEach(linea => {
@@ -9823,11 +9877,12 @@ Y con sus brazos nos sostendrá.`
                 </div>
             `;
             
-            mostrarLista(); // actualiza la clase 'seleccionado' en la lista
+            actualizarTituloBarra();
+            mostrarListaDropdown();
             history.pushState(null, '', `?himno=${himno.slug}`);
         }
 
-        // Función de búsqueda
+        // ===== BÚSQUEDA =====
         function buscarHimnos() {
             const texto = document.getElementById('buscarInput').value.toLowerCase();
             
@@ -9841,66 +9896,36 @@ Y con sus brazos nos sostendrá.`
                 );
             }
             
-            mostrarLista();
+            mostrarListaDropdown();
             
             if (himnoSeleccionado && !himnosFiltrados.includes(himnoSeleccionado)) {
                 himnoSeleccionado = null;
+                actualizarTituloBarra();
                 document.getElementById('visor-himno').innerHTML = '<div class="no-seleccionado">👆 Selecciona un himno de la lista</div>';
             }
         }
 
-        // Navegación
-        function navegarHimno(direccion) {
-            if (!himnoSeleccionado) return;
-            
-            const indexActual = himnosFiltrados.findIndex(h => h.slug === himnoSeleccionado.slug);
-            
-            if (direccion === 'anterior' && indexActual > 0) {
-                seleccionarHimno(indexActual - 1);
-            } else if (direccion === 'siguiente' && indexActual < himnosFiltrados.length - 1) {
-                seleccionarHimno(indexActual + 1);
-            }
-        }
-
-        function actualizarBotonesNavegacion() {
-            const btnAnterior = document.getElementById('btnAnterior');
-            const btnSiguiente = document.getElementById('btnSiguiente');
-            
-            if (!himnoSeleccionado) {
-                btnAnterior.disabled = true;
-                btnSiguiente.disabled = true;
-                return;
-            }
-            
-            const indexActual = himnosFiltrados.findIndex(h => h.slug === himnoSeleccionado.slug);
-            btnAnterior.disabled = indexActual <= 0;
-            btnSiguiente.disabled = indexActual >= himnosFiltrados.length - 1;
-        }
-
-        // Cargar himno desde URL si existe
+        // ===== INICIALIZACIÓN =====
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const slug = urlParams.get('himno');
             
             if (slug && mapaSlugs.hasOwnProperty(slug)) {
-                const indexReal = mapaSlugs[slug];
-                // Buscar el índice en filtrados (si está filtrado, puede no aparecer)
-                const indexFiltrado = himnosFiltrados.findIndex(h => h.slug === slug);
-                if (indexFiltrado >= 0) {
-                    seleccionarHimno(indexFiltrado);
-                } else {
-                    // Si no está en filtrados, mostramos todos y seleccionamos
-                    himnosFiltrados = [...himnos];
-                    mostrarLista();
-                    const nuevoIndex = himnosFiltrados.findIndex(h => h.slug === slug);
-                    if (nuevoIndex >= 0) seleccionarHimno(nuevoIndex);
-                }
+                seleccionarHimno(slug);
             } else {
-                mostrarLista();
+                mostrarListaDropdown();
+                actualizarTituloBarra();
             }
         };
 
-        // Búsqueda con tecla Enter
+        // ===== CERRAR SELECTOR AL HACER CLICK FUERA =====
+        document.addEventListener('click', function(event) {
+            const selector = document.getElementById('selectorHimno');
+            if (!selector.contains(event.target) && selectorAbierto) {
+                cerrarSelector();
+            }
+        });
+
         document.getElementById('buscarInput').addEventListener('keyup', function(e) {
             if (e.key === 'Enter') {
                 buscarHimnos();
