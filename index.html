@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cánticos Espirituales | IB Banes Ebenezer</title>
+    <style>
+        /* ===== ESTILOS GENERALES ===== */
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif; /* Fuente más clásica */
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f7f4; /* Color de fondo suave, como papel viejo */
+            color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+        
+        /* ===== PORTADA (basada en tu imagen) ===== */
+        .portada {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 10px 30px 10px;
+            border-bottom: 2px solid #d4af37; /* Línea dorada como separación elegante */
+        }
+        
+        .titulo-principal {
+            font-size: 2.5em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #1e3c5c; /* Azul profundo, formal */
+            margin: 0;
+            text-transform: uppercase;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+        
+        .subtitulo {
+            font-size: 1.2em;
+            font-style: italic;
+            color: #5a6d7c;
+            margin: 15px 0 25px 0;
+            border-top: 1px solid #d4af37;
+            border-bottom: 1px solid #d4af37;
+            padding: 10px 0;
+            display: inline-block;
+        }
+        
+        .iglesia {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #1e3c5c;
+            margin: 20px 0 5px 0;
+            text-transform: uppercase;
+        }
+        
+        .anio {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #d4af37; /* Dorado para el año */
+            margin: 10px 0 0 0;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        /* ===== LISTA DE HIMNOS ===== */
+        h2 {
+            color: #1e3c5c;
+            border-left: 5px solid #d4af37;
+            padding-left: 15px;
+            margin-top: 30px;
+            font-size: 1.8em;
+        }
+        
+        .himno-lista {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .himno-lista li {
+            margin: 12px 0;
+            padding: 10px 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #1e3c5c;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .himno-lista li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left-color: #d4af37;
+        }
+        
+        .himno-lista a {
+            text-decoration: none;
+            color: #1e3c5c;
+            font-weight: bold;
+            font-size: 1.2em;
+            display: block;
+        }
+        
+        .himno-lista a:hover {
+            color: #b8860b; /* Dorado oscuro */
+        }
+        
+        .himno-autor {
+            font-size: 0.9em;
+            color: #5a6d7c;
+            margin-top: 4px;
+            font-style: italic;
+        }
+        
+        /* ===== PIE DE PÁGINA ===== */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #777;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ===== PORTADA (diseño basado en tu imagen) ===== -->
+        <div class="portada">
+            <h1 class="titulo-principal">CÁNTICOS<br>ESPIRITUALES</h1>
+            <div class="subtitulo">-Selección de cantos para el culto público-</div>
+            <div class="iglesia">PRIMERA IGLESIA BAUTISTA<br>DE BANES EBENEZER</div>
+            <div class="anio">2025</div>
+        </div>
+        
+        <!-- ===== LISTA DE HIMNOS ===== -->
+        <h2>✝ Himnos</h2>
+        <ul class="himno-lista" id="lista-himnos">
+            <!-- Los himnos se cargarán aquí automáticamente -->
+        </ul>
+        
+        <footer>
+            © 2025 - Primera Iglesia Bautista de Banes Ebenezer
+        </footer>
+    </div>
+
+    <script>
+        // ===== BASE DE DATOS DE HIMNOS =====
+        // Aquí guardaremos TODOS los himnos. Iremos añadiendo más.
+        const himnos = [
+            { 
+                numero: "34", 
+                titulo: "The God of Abraham Praise", 
+                autores: "Daniel ben Judah, Newton Mann, William Gannett" 
+            },
+            { 
+                numero: "117", 
+                titulo: "As with Gladness Men of Old", 
+                autores: "William C. Dix" 
+            },
+            { 
+                numero: "118", 
+                titulo: "What Child Is This", 
+                autores: "William C. Dix" 
+            },
+            { 
+                numero: "197", 
+                titulo: "Rejoice, the Lord Is King", 
+                autores: "Charles Wesley" 
+            },
+            { 
+                numero: "280", 
+                titulo: "Jesus, Keep Me Near the Cross", 
+                autores: "Fanny J. Crosby" 
+            },
+            { 
+                numero: "479", 
+                titulo: "Children of God", 
+                autores: "Anderson T. Dailey" 
+            }
+        ];
+
+        // Función para ordenar los himnos por número (para que estén en orden)
+        himnos.sort((a, b) => parseInt(a.numero) - parseInt(b.numero));
+
+        // Función para mostrar los himnos en la lista
+        function mostrarHimnos() {
+            const lista = document.getElementById('lista-himnos');
+            lista.innerHTML = ''; // Limpiar la lista antes de volver a llenarla
+
+            himnos.forEach(himno => {
+                // Crear un elemento de lista (<li>)
+                const li = document.createElement('li');
+                
+                // Crear el contenido con número, título y autor
+                li.innerHTML = `
+                    <a href="javascript:void(0);">${himno.numero}. ${himno.titulo}</a>
+                    <div class="himno-autor">${himno.autores}</div>
+                `;
+                
+                // Añadirlo a la lista
+                lista.appendChild(li);
+            });
+        }
+
+        // Ejecutar la función cuando la página cargue
+        mostrarHimnos();
+    </script>
+</body>
+</html>
