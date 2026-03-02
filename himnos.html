@@ -179,6 +179,11 @@
             margin: 15px 0;
             text-align: center;
         }
+
+        .separador-estrofa {
+    height: 1.2em;
+    width: 100%;
+}
         
         .no-seleccionado {
             text-align: center;
@@ -2603,26 +2608,39 @@ Porque Él me amó a mí`
             actualizarBotonesNavegacion();
         }
 
+    
         // Función para seleccionar un himno
-        function seleccionarHimno(index) {
-            const himno = himnosFiltrados[index];
-            himnoSeleccionado = himno;
-            
-            const visor = document.getElementById('visor-himno');
-            visor.innerHTML = `
-                <div class="visor-header">
-                    <div class="visor-numero">HIMNO ${himno.numero}</div>
-                    <h2 class="visor-titulo">${himno.titulo}</h2>
-                    <div class="visor-autor">${himno.autores || himno.fuente || ''}</div>
-                </div>
-                <div class="visor-letra">
-                    ${himno.letra.split('\n').map(linea => `<p>${linea}</p>`).join('')}
-                </div>
-            `;
-            
-            mostrarLista(); // actualiza la clase 'seleccionado' en la lista
-            history.pushState(null, '', `?himno=${himno.numero}`);
+function seleccionarHimno(index) {
+    const himno = himnosFiltrados[index];
+    himnoSeleccionado = himno;
+    
+    const visor = document.getElementById('visor-himno');
+    
+    // Procesar la letra: líneas con texto = <p>, líneas vacías = separador
+    const lineas = himno.letra.split('\n');
+    let letraHtml = '';
+    lineas.forEach(linea => {
+        if (linea.trim() === '') {
+            letraHtml += '<div class="separador-estrofa"></div>';
+        } else {
+            letraHtml += `<p>${linea}</p>`;
         }
+    });
+    
+    visor.innerHTML = `
+        <div class="visor-header">
+            <div class="visor-numero">HIMNO ${himno.numero}</div>
+            <h2 class="visor-titulo">${himno.titulo}</h2>
+            <div class="visor-autor">${himno.autores || himno.fuente || ''}</div>
+        </div>
+        <div class="visor-letra">
+            ${letraHtml}
+        </div>
+    `;
+    
+    mostrarLista(); // actualiza la clase 'seleccionado' en la lista
+    history.pushState(null, '', `?himno=${himno.numero}`);
+}
 
         // Función de búsqueda
         function buscarHimnos() {
