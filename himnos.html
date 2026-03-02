@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Himnos | Cánticos Espirituales</title>
     <style>
-        /* ===== ESTILOS GENERALES ===== */
+        /* Mismos estilos de antes... */
         body {
             font-family: 'Georgia', 'Times New Roman', serif;
             line-height: 1.6;
@@ -24,7 +24,6 @@
             border-radius: 4px;
         }
         
-        /* ===== ENCABEZADO DE PÁGINA ===== */
         .header-pagina {
             display: flex;
             justify-content: space-between;
@@ -32,6 +31,7 @@
             margin-bottom: 30px;
             border-bottom: 2px solid #d4af37;
             padding-bottom: 15px;
+            flex-wrap: wrap;
         }
         
         .header-pagina h1 {
@@ -55,52 +55,177 @@
             color: #1e3c5c;
         }
         
+        /* ===== NUEVO: BUSCADOR Y FILTROS ===== */
+        .buscador {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        #buscarInput {
+            flex: 1;
+            padding: 12px;
+            font-size: 1em;
+            border: 2px solid #d4af37;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .btn-buscar {
+            background-color: #1e3c5c;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        
+        .btn-buscar:hover {
+            background-color: #d4af37;
+            color: #1e3c5c;
+        }
+        
         /* ===== LISTA DE HIMNOS ===== */
         .himno-lista {
             list-style: none;
             padding: 0;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
         
         .himno-lista li {
-            margin: 12px 0;
+            margin: 0;
             padding: 15px;
             background: #f9f9f9;
-            border-left: 4px solid #1e3c5c;
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
         
         .himno-lista li:hover {
-            transform: translateX(5px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-left-color: #d4af37;
+            background-color: #e8e2d8;
+            border-left: 4px solid #d4af37;
+        }
+        
+        .himno-lista li.seleccionado {
+            background-color: #d4af37;
+            color: white;
+            font-weight: bold;
         }
         
         .himno-lista a {
             text-decoration: none;
-            color: #1e3c5c;
+            color: inherit;
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.1em;
             display: block;
         }
         
-        .himno-lista a:hover {
-            color: #b8860b;
+        .himno-autor {
+            font-size: 0.85em;
+            color: #5a6d7c;
+            margin-top: 5px;
         }
         
-        .himno-autor {
-            font-size: 0.9em;
+        .himno-lista li.seleccionado .himno-autor {
+            color: #1e3c5c;
+        }
+        
+        /* ===== VISOR DE HIMNO ===== */
+        .visor-himno {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: #f9f9f9;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+        }
+        
+        .visor-header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+        }
+        
+        .visor-numero {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .visor-titulo {
+            color: #1e3c5c;
+            font-size: 2em;
+            margin: 10px 0 5px;
+        }
+        
+        .visor-autor {
             color: #5a6d7c;
-            margin-top: 8px;
             font-style: italic;
         }
         
-        /* ===== PIE DE PÁGINA ===== */
+        .visor-letra {
+            font-size: 1.1em;
+            line-height: 1.8;
+            white-space: pre-line;
+            font-family: inherit;
+        }
+        
+        .visor-letra p {
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .no-seleccionado {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-style: italic;
+        }
+        
+        /* ===== BOTONES DE NAVEGACIÓN RÁPIDA ===== */
+        .nav-rapida {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        
+        .btn-nav {
+            background-color: #1e3c5c;
+            color: white;
+            padding: 8px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-nav:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .btn-nav:hover:not(:disabled) {
+            background-color: #d4af37;
+            color: #1e3c5c;
+        }
+        
         footer {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 40px;
             padding-top: 20px;
             border-top: 1px solid #ddd;
             color: #777;
+        }
+        
+        .contador {
+            color: #5a6d7c;
+            margin: 10px 0;
             font-size: 0.9em;
         }
     </style>
@@ -108,13 +233,41 @@
 <body>
     <div class="container">
         <div class="header-pagina">
-            <h1>📖 Lista de Himnos</h1>
+            <h1>📖 Himnario</h1>
             <a href="index.html" class="btn-volver">← Volver a Portada</a>
         </div>
         
-        <ul class="himno-lista" id="lista-himnos">
-            <!-- Los himnos se cargarán aquí -->
-        </ul>
+        <!-- BUSCADOR -->
+        <div class="buscador">
+            <input type="text" id="buscarInput" placeholder="Buscar por título, número o autor..." autocomplete="off">
+            <button class="btn-buscar" onclick="buscarHimnos()">Buscar</button>
+        </div>
+        
+        <!-- CONTADOR -->
+        <div class="contador" id="contador">Mostrando X de X himnos</div>
+        
+        <!-- LISTA Y VISOR EN DOS COLUMNAS (para pantallas grandes) -->
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">
+            <!-- LISTA DE HIMNOS -->
+            <div>
+                <ul class="himno-lista" id="lista-himnos">
+                    <!-- Los himnos se cargarán aquí -->
+                </ul>
+            </div>
+            
+            <!-- VISOR DEL HIMNO SELECCIONADO -->
+            <div class="visor-himno" id="visor-himno">
+                <div class="no-seleccionado">
+                    👆 Selecciona un himno de la lista
+                </div>
+            </div>
+        </div>
+        
+        <!-- NAVEGACIÓN RÁPIDA -->
+        <div class="nav-rapida">
+            <button class="btn-nav" id="btnAnterior" onclick="navegarHimno('anterior')" disabled>← Anterior</button>
+            <button class="btn-nav" id="btnSiguiente" onclick="navegarHimno('siguiente')" disabled>Siguiente →</button>
+        </div>
         
         <footer>
             © 2025 - Primera Iglesia Bautista de Banes Ebenezer
@@ -122,60 +275,208 @@
     </div>
 
     <script>
-        // ===== BASE DE DATOS DE HIMNOS (misma lista que teníamos) =====
+        // ===== BASE DE DATOS DE HIMNOS (VERSIÓN COMPLETA) =====
+        // Aquí es donde iremos agregando TODOS tus himnos
         const himnos = [
             { 
                 numero: "34", 
                 titulo: "The God of Abraham Praise", 
-                autores: "Daniel ben Judah, Newton Mann, William Gannett" 
+                autores: "Daniel ben Judah, Newton Mann, William Gannett",
+                letra: `The God of Abraham praise,
+Who reigns enthroned above;
+Ancient of everlasting days,
+And God of love;
+Jehovah, great I AM!
+By earth and heaven confessed;
+I bow and bless the sacred name,
+Forever blessed.
+
+The God of Abraham praise,
+At whose supreme command
+From earth I rise and seek the joys
+At His right hand;
+I all on earth forsake,
+Its wisdom, fame, and power;
+And Him my only portion make,
+My shield and tower.
+
+The God of Abraham praise,
+Whose all-sufficient grace
+Shall guide me all my happy days,
+In all my ways.
+He calls a worm His friend,
+He calls Himself my God!
+And He shall save me to the end,
+Through Jesus' blood.`
             },
             { 
                 numero: "117", 
                 titulo: "As with Gladness Men of Old", 
-                autores: "William C. Dix" 
+                autores: "William C. Dix",
+                letra: `[Letra pendiente de añadir]` 
             },
             { 
                 numero: "118", 
                 titulo: "What Child Is This", 
-                autores: "William C. Dix" 
+                autores: "William C. Dix",
+                letra: `[Letra pendiente de añadir]` 
             },
             { 
                 numero: "197", 
                 titulo: "Rejoice, the Lord Is King", 
-                autores: "Charles Wesley" 
+                autores: "Charles Wesley",
+                letra: `[Letra pendiente de añadir]` 
             },
             { 
                 numero: "280", 
                 titulo: "Jesus, Keep Me Near the Cross", 
-                autores: "Fanny J. Crosby" 
+                autores: "Fanny J. Crosby",
+                letra: `[Letra pendiente de añadir]` 
             },
             { 
                 numero: "479", 
                 titulo: "Children of God", 
-                autores: "Anderson T. Dailey" 
+                autores: "Anderson T. Dailey",
+                letra: `[Letra pendiente de añadir]` 
             }
         ];
 
+        // Variables de estado
+        let himnosFiltrados = [...himnos];
+        let himnoSeleccionado = null;
+        
         // Ordenar por número
-        himnos.sort((a, b) => parseInt(a.numero) - parseInt(b.numero));
+        function ordenarPorNumero(lista) {
+            return lista.sort((a, b) => parseInt(a.numero) - parseInt(b.numero));
+        }
+        
+        himnos = ordenarPorNumero(himnos);
+        himnosFiltrados = ordenarPorNumero(himnosFiltrados);
 
-        // Función para mostrar los himnos
-        function mostrarHimnos() {
+        // Función para mostrar la lista de himnos
+        function mostrarLista() {
             const lista = document.getElementById('lista-himnos');
+            const contador = document.getElementById('contador');
+            
             lista.innerHTML = '';
-
-            himnos.forEach(himno => {
+            
+            himnosFiltrados.forEach((himno, index) => {
                 const li = document.createElement('li');
-                // Por ahora el enlace no lleva a nada (usaremos #)
+                li.className = himnoSeleccionado && himno.numero === himnoSeleccionado.numero ? 'seleccionado' : '';
+                li.onclick = () => seleccionarHimno(index);
                 li.innerHTML = `
-                    <a href="#">${himno.numero}. ${himno.titulo}</a>
+                    <a href="javascript:void(0);">${himno.numero}. ${himno.titulo}</a>
                     <div class="himno-autor">${himno.autores}</div>
                 `;
                 lista.appendChild(li);
             });
+            
+            contador.textContent = `Mostrando ${himosFiltrados.length} de ${himnos.length} himnos`;
+            
+            // Actualizar botones de navegación
+            actualizarBotonesNavegacion();
         }
 
-        mostrarHimnos();
+        // Función para seleccionar un himno
+        function seleccionarHimno(index) {
+            const himno = himnosFiltrados[index];
+            himnoSeleccionado = himno;
+            
+            // Actualizar visor
+            const visor = document.getElementById('visor-himno');
+            visor.innerHTML = `
+                <div class="visor-header">
+                    <div class="visor-numero">HIMNO ${himno.numero}</div>
+                    <h2 class="visor-titulo">${himno.titulo}</h2>
+                    <div class="visor-autor">${himno.autores}</div>
+                </div>
+                <div class="visor-letra">
+                    ${himno.letra.split('\n').map(linea => `<p>${linea}</p>`).join('')}
+                </div>
+            `;
+            
+            // Actualizar clase en la lista
+            mostrarLista();
+            
+            // Actualizar URL sin recargar (para compartir)
+            history.pushState(null, '', `?himno=${himno.numero}`);
+        }
+
+        // Función para buscar himnos
+        function buscarHimnos() {
+            const texto = document.getElementById('buscarInput').value.toLowerCase();
+            
+            if (texto === '') {
+                himnosFiltrados = [...himnos];
+            } else {
+                himnosFiltrados = himnos.filter(himno => 
+                    himno.titulo.toLowerCase().includes(texto) ||
+                    himno.numero.includes(texto) ||
+                    himno.autores.toLowerCase().includes(texto)
+                );
+            }
+            
+            himnosFiltrados = ordenarPorNumero(himosFiltrados);
+            mostrarLista();
+            
+            // Limpiar selección si el himno seleccionado ya no está en la lista filtrada
+            if (himnoSeleccionado && !himosFiltrados.includes(himnoSeleccionado)) {
+                himnoSeleccionado = null;
+                document.getElementById('visor-himno').innerHTML = '<div class="no-seleccionado">👆 Selecciona un himno de la lista</div>';
+            }
+        }
+
+        // Función para navegar entre himnos
+        function navegarHimno(direccion) {
+            if (!himnoSeleccionado) return;
+            
+            const indexActual = himnosFiltrados.findIndex(h => h.numero === himnoSeleccionado.numero);
+            
+            if (direccion === 'anterior' && indexActual > 0) {
+                seleccionarHimno(indexActual - 1);
+            } else if (direccion === 'siguiente' && indexActual < himnosFiltrados.length - 1) {
+                seleccionarHimno(indexActual + 1);
+            }
+        }
+
+        // Función para actualizar botones de navegación
+        function actualizarBotonesNavegacion() {
+            const btnAnterior = document.getElementById('btnAnterior');
+            const btnSiguiente = document.getElementById('btnSiguiente');
+            
+            if (!himnoSeleccionado) {
+                btnAnterior.disabled = true;
+                btnSiguiente.disabled = true;
+                return;
+            }
+            
+            const indexActual = himnosFiltrados.findIndex(h => h.numero === himnoSeleccionado.numero);
+            
+            btnAnterior.disabled = indexActual <= 0;
+            btnSiguiente.disabled = indexActual >= himnosFiltrados.length - 1;
+        }
+
+        // Cargar himno desde URL si existe (?himno=34)
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const himnoNumero = urlParams.get('himno');
+            
+            if (himnoNumero) {
+                const index = himnosFiltrados.findIndex(h => h.numero === himnoNumero);
+                if (index >= 0) {
+                    seleccionarHimno(index);
+                }
+            }
+            
+            mostrarLista();
+        }
+
+        // Buscar mientras se escribe (opcional)
+        document.getElementById('buscarInput').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                buscarHimnos();
+            }
+        });
     </script>
 </body>
 </html>
