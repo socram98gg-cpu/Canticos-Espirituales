@@ -13,25 +13,22 @@
             padding: 0;
             background-color: #f9f7f4;
             color: #2c3e50;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
         .container {
-            max-width: 700px;
-            margin: 20px;
+            max-width: 800px;
+            margin: 0 auto;
             background: white;
             padding: 40px 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            border-radius: 8px;
-            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
         
-        /* ===== PORTADA (basada en tu imagen) ===== */
+        /* ===== PORTADA ===== */
         .portada {
-            margin-bottom: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #d4af37;
         }
         
         .titulo-principal {
@@ -42,34 +39,32 @@
             margin: 0;
             text-transform: uppercase;
             line-height: 1.2;
-            word-break: break-word;
         }
         
         .subtitulo {
-            font-size: 1.3em;
+            font-size: 1.2em;
             font-style: italic;
             color: #5a6d7c;
-            margin: 20px 0 30px 0;
+            margin: 20px 0;
             border-top: 2px solid #d4af37;
             border-bottom: 2px solid #d4af37;
-            padding: 12px 0;
+            padding: 10px 0;
             display: inline-block;
         }
         
         .iglesia {
-            font-size: 1.5em;
+            font-size: 1.3em;
             font-weight: 600;
             color: #1e3c5c;
-            margin: 20px 0 10px 0;
+            margin: 15px 0 5px 0;
             text-transform: uppercase;
         }
         
         .anio {
-            font-size: 2em;
+            font-size: 1.8em;
             font-weight: bold;
             color: #d4af37;
-            margin: 15px 0 25px 0;
-            font-family: 'Arial', sans-serif;
+            margin: 10px 0 20px 0;
         }
         
         /* ===== BOTÓN ===== */
@@ -77,49 +72,164 @@
             display: inline-block;
             background-color: #1e3c5c;
             color: white;
-            padding: 15px 40px;
-            font-size: 1.3em;
+            padding: 12px 35px;
+            font-size: 1.2em;
             text-decoration: none;
             border-radius: 50px;
-            margin-top: 20px;
+            margin: 15px 0 5px;
             border: 2px solid #d4af37;
             transition: all 0.3s ease;
             font-weight: bold;
-            letter-spacing: 1px;
         }
         
         .btn-entrar:hover {
             background-color: #d4af37;
             color: #1e3c5c;
             border-color: #1e3c5c;
-            transform: scale(1.05);
+        }
+        
+        /* ===== SECCIONES DE CONTENIDO ===== */
+        .seccion {
+            margin: 40px 0;
+        }
+        
+        .seccion h2 {
+            color: #1e3c5c;
+            font-size: 1.8em;
+            border-left: 6px solid #d4af37;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .seccion h3 {
+            color: #1e3c5c;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .seccion p {
+            font-size: 1.1em;
+            text-align: justify;
+        }
+        
+        /* ===== LISTAS ===== */
+        .lista-canticos {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .lista-canticos li {
+            margin: 12px 0;
+            padding: 10px 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #1e3c5c;
+            font-size: 1.05em;
+        }
+        
+        .lista-canticos li::before {
+            content: "🎵";
+            margin-right: 10px;
+            color: #d4af37;
+        }
+        
+        .lista-fuentes {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .lista-fuentes li {
+            background: #1e3c5c;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 1em;
+            font-weight: bold;
+            border: 2px solid #d4af37;
+        }
+        
+        /* ===== DESCRIPCIÓN DESTACADA ===== */
+        .descripcion-destacada {
+            background-color: #f0ebe4;
+            padding: 25px;
+            border-radius: 8px;
+            font-size: 1.15em;
+            text-align: center;
+            border: 1px solid #d4af37;
+            margin: 30px 0;
         }
         
         /* ===== PIE DE PÁGINA ===== */
         footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 2px solid #d4af37;
             color: #777;
-            font-size: 0.9em;
+            font-size: 0.95em;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- ===== PORTADA COMPLETA ===== -->
+        <!-- ===== PORTADA ===== -->
         <div class="portada">
             <h1 class="titulo-principal">CÁNTICOS<br>ESPIRITUALES</h1>
             <div class="subtitulo">-Selección de cantos para el culto público-</div>
             <div class="iglesia">PRIMERA IGLESIA BAUTISTA<br>DE BANES EBENEZER</div>
-            <div class="anio">2026</div>
+            <div class="anio">2025</div>
             
-            <!-- BOTÓN PARA ENTRAR A LOS HIMNOS -->
             <a href="himnos.html" class="btn-entrar">ENTRAR AL HIMNARIO →</a>
         </div>
-        
+
+        <!-- ===== DESCRIPCIÓN ===== -->
+        <div class="descripcion-destacada">
+            <p style="margin: 0; font-size: 1.2em;">
+                <strong>Cánticos Espirituales</strong> es un recurso elaborado en el contexto de nuestra iglesia local, que reúne una selección de canciones apropiadas para el culto público.
+            </p>
+        </div>
+
+        <!-- ===== SECCIÓN: CONTENIDO DEL HIMNARIO ===== -->
+        <div class="seccion">
+            <h2>📖 Contenido de Cánticos Espirituales</h2>
+            
+            <ul class="lista-canticos">
+                <li><strong>Himnos clásicos</strong> como Sublime Gracia, Sé Tú mi Visión, Santo Santo Santo, etc.</li>
+                <li><strong>Himnos contemporáneos</strong> de Gracia Soberana, La IBI, Jonathan & Sarah Jerez y otros.</li>
+                <li><strong>Salmos</strong> y otras porciones de la Biblia convertidas en canciones congregacionales.</li>
+                <li><strong>Cánticos de alabanza cubana.</strong></li>
+                <li><strong>Coritos</strong> antiguos y modernos.</li>
+                <li><strong>Alabanzas de júbilo.</strong></li>
+                <li><strong>Cánticos compuestos</strong> por miembros de nuestra iglesia local.</li>
+            </ul>
+        </div>
+
+        <!-- ===== SECCIÓN: FUENTES ===== -->
+        <div class="seccion">
+            <h2>📚 Fuentes empleadas</h2>
+            <p style="margin-bottom: 15px;">Esta colección se nutre de los siguientes himnarios y ministerios musicales:</p>
+            
+            <ul class="lista-fuentes">
+                <li>HB</li>
+                <li>HG</li>
+                <li>SGM</li>
+                <li>HAC</li>
+            </ul>
+            
+            <p style="margin-top: 20px; font-size: 0.95em; color: #5a6d7c;">
+                <strong>HB:</strong> Himnario Bautista · <strong>HG:</strong> Himnos de Gracia · <strong>SGM:</strong> Sovereign Grace Music (Ministerio Gracia Soberana) · <strong>HAC:</strong> Himnario de Alabanza Cubana
+            </p>
+        </div>
+
+        <!-- ===== PIE DE PÁGINA ===== -->
         <footer>
-            © 2026 - Primera Iglesia Bautista de Banes Ebenezer
+            © 2025 - Primera Iglesia Bautista de Banes Ebenezer<br>
+            <span style="font-size: 0.9em;">"Cantando con gracia en vuestros corazones al Señor" (Colosenses 3:16)</span>
         </footer>
     </div>
 </body>
