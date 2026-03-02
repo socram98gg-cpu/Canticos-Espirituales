@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Himnos | Cánticos Espirituales</title>
+    <style>
+        /* ===== ESTILOS GENERALES ===== */
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f7f4;
+            color: #2c3e50;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+        
+        /* ===== ENCABEZADO DE PÁGINA ===== */
+        .header-pagina {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 15px;
+        }
+        
+        .header-pagina h1 {
+            color: #1e3c5c;
+            margin: 0;
+            font-size: 1.8em;
+        }
+        
+        .btn-volver {
+            background-color: #1e3c5c;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-volver:hover {
+            background-color: #d4af37;
+            color: #1e3c5c;
+        }
+        
+        /* ===== LISTA DE HIMNOS ===== */
+        .himno-lista {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .himno-lista li {
+            margin: 12px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #1e3c5c;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .himno-lista li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left-color: #d4af37;
+        }
+        
+        .himno-lista a {
+            text-decoration: none;
+            color: #1e3c5c;
+            font-weight: bold;
+            font-size: 1.2em;
+            display: block;
+        }
+        
+        .himno-lista a:hover {
+            color: #b8860b;
+        }
+        
+        .himno-autor {
+            font-size: 0.9em;
+            color: #5a6d7c;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        /* ===== PIE DE PÁGINA ===== */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #777;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-pagina">
+            <h1>📖 Lista de Himnos</h1>
+            <a href="index.html" class="btn-volver">← Volver a Portada</a>
+        </div>
+        
+        <ul class="himno-lista" id="lista-himnos">
+            <!-- Los himnos se cargarán aquí -->
+        </ul>
+        
+        <footer>
+            © 2025 - Primera Iglesia Bautista de Banes Ebenezer
+        </footer>
+    </div>
+
+    <script>
+        // ===== BASE DE DATOS DE HIMNOS (misma lista que teníamos) =====
+        const himnos = [
+            { 
+                numero: "34", 
+                titulo: "The God of Abraham Praise", 
+                autores: "Daniel ben Judah, Newton Mann, William Gannett" 
+            },
+            { 
+                numero: "117", 
+                titulo: "As with Gladness Men of Old", 
+                autores: "William C. Dix" 
+            },
+            { 
+                numero: "118", 
+                titulo: "What Child Is This", 
+                autores: "William C. Dix" 
+            },
+            { 
+                numero: "197", 
+                titulo: "Rejoice, the Lord Is King", 
+                autores: "Charles Wesley" 
+            },
+            { 
+                numero: "280", 
+                titulo: "Jesus, Keep Me Near the Cross", 
+                autores: "Fanny J. Crosby" 
+            },
+            { 
+                numero: "479", 
+                titulo: "Children of God", 
+                autores: "Anderson T. Dailey" 
+            }
+        ];
+
+        // Ordenar por número
+        himnos.sort((a, b) => parseInt(a.numero) - parseInt(b.numero));
+
+        // Función para mostrar los himnos
+        function mostrarHimnos() {
+            const lista = document.getElementById('lista-himnos');
+            lista.innerHTML = '';
+
+            himnos.forEach(himno => {
+                const li = document.createElement('li');
+                // Por ahora el enlace no lleva a nada (usaremos #)
+                li.innerHTML = `
+                    <a href="#">${himno.numero}. ${himno.titulo}</a>
+                    <div class="himno-autor">${himno.autores}</div>
+                `;
+                lista.appendChild(li);
+            });
+        }
+
+        mostrarHimnos();
+    </script>
+</body>
+</html>
