@@ -7,36 +7,38 @@
     <style>
         /* ===== ESTILOS GENERALES ===== */
         body {
-            font-family: 'Georgia', 'Times New Roman', serif; /* Fuente más clásica */
+            font-family: 'Georgia', 'Times New Roman', serif;
             line-height: 1.6;
             margin: 0;
-            padding: 20px;
-            background-color: #f9f7f4; /* Color de fondo suave, como papel viejo */
+            padding: 0;
+            background-color: #f9f7f4;
             color: #2c3e50;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .container {
-            max-width: 800px;
-            margin: auto;
+            max-width: 700px;
+            margin: 20px;
             background: white;
-            padding: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-radius: 4px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            text-align: center;
         }
         
         /* ===== PORTADA (basada en tu imagen) ===== */
         .portada {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px 10px 30px 10px;
-            border-bottom: 2px solid #d4af37; /* Línea dorada como separación elegante */
+            margin-bottom: 30px;
         }
         
         .titulo-principal {
-            font-size: 2.5em;
+            font-size: 2.8em;
             font-weight: bold;
-            letter-spacing: 2px;
-            color: #1e3c5c; /* Azul profundo, formal */
+            letter-spacing: 3px;
+            color: #1e3c5c;
             margin: 0;
             text-transform: uppercase;
             line-height: 1.2;
@@ -44,83 +46,58 @@
         }
         
         .subtitulo {
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-style: italic;
             color: #5a6d7c;
-            margin: 15px 0 25px 0;
-            border-top: 1px solid #d4af37;
-            border-bottom: 1px solid #d4af37;
-            padding: 10px 0;
+            margin: 20px 0 30px 0;
+            border-top: 2px solid #d4af37;
+            border-bottom: 2px solid #d4af37;
+            padding: 12px 0;
             display: inline-block;
         }
         
         .iglesia {
-            font-size: 1.3em;
+            font-size: 1.5em;
             font-weight: 600;
             color: #1e3c5c;
-            margin: 20px 0 5px 0;
+            margin: 20px 0 10px 0;
             text-transform: uppercase;
         }
         
         .anio {
-            font-size: 1.5em;
+            font-size: 2em;
             font-weight: bold;
-            color: #d4af37; /* Dorado para el año */
-            margin: 10px 0 0 0;
+            color: #d4af37;
+            margin: 15px 0 25px 0;
             font-family: 'Arial', sans-serif;
         }
         
-        /* ===== LISTA DE HIMNOS ===== */
-        h2 {
-            color: #1e3c5c;
-            border-left: 5px solid #d4af37;
-            padding-left: 15px;
-            margin-top: 30px;
-            font-size: 1.8em;
-        }
-        
-        .himno-lista {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .himno-lista li {
-            margin: 12px 0;
-            padding: 10px 15px;
-            background: #f9f9f9;
-            border-left: 4px solid #1e3c5c;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .himno-lista li:hover {
-            transform: translateX(5px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-left-color: #d4af37;
-        }
-        
-        .himno-lista a {
+        /* ===== BOTÓN ===== */
+        .btn-entrar {
+            display: inline-block;
+            background-color: #1e3c5c;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.3em;
             text-decoration: none;
-            color: #1e3c5c;
+            border-radius: 50px;
+            margin-top: 20px;
+            border: 2px solid #d4af37;
+            transition: all 0.3s ease;
             font-weight: bold;
-            font-size: 1.2em;
-            display: block;
+            letter-spacing: 1px;
         }
         
-        .himno-lista a:hover {
-            color: #b8860b; /* Dorado oscuro */
-        }
-        
-        .himno-autor {
-            font-size: 0.9em;
-            color: #5a6d7c;
-            margin-top: 4px;
-            font-style: italic;
+        .btn-entrar:hover {
+            background-color: #d4af37;
+            color: #1e3c5c;
+            border-color: #1e3c5c;
+            transform: scale(1.05);
         }
         
         /* ===== PIE DE PÁGINA ===== */
         footer {
-            text-align: center;
-            margin-top: 50px;
+            margin-top: 40px;
             padding-top: 20px;
             border-top: 1px solid #ddd;
             color: #777;
@@ -130,86 +107,20 @@
 </head>
 <body>
     <div class="container">
-        <!-- ===== PORTADA (diseño basado en tu imagen) ===== -->
+        <!-- ===== PORTADA COMPLETA ===== -->
         <div class="portada">
             <h1 class="titulo-principal">CÁNTICOS<br>ESPIRITUALES</h1>
             <div class="subtitulo">-Selección de cantos para el culto público-</div>
             <div class="iglesia">PRIMERA IGLESIA BAUTISTA<br>DE BANES EBENEZER</div>
             <div class="anio">2025</div>
+            
+            <!-- BOTÓN PARA ENTRAR A LOS HIMNOS -->
+            <a href="himnos.html" class="btn-entrar">ENTRAR AL HIMNARIO →</a>
         </div>
-        
-        <!-- ===== LISTA DE HIMNOS ===== -->
-        <h2>✝ Himnos</h2>
-        <ul class="himno-lista" id="lista-himnos">
-            <!-- Los himnos se cargarán aquí automáticamente -->
-        </ul>
         
         <footer>
             © 2025 - Primera Iglesia Bautista de Banes Ebenezer
         </footer>
     </div>
-
-    <script>
-        // ===== BASE DE DATOS DE HIMNOS =====
-        // Aquí guardaremos TODOS los himnos. Iremos añadiendo más.
-        const himnos = [
-            { 
-                numero: "34", 
-                titulo: "The God of Abraham Praise", 
-                autores: "Daniel ben Judah, Newton Mann, William Gannett" 
-            },
-            { 
-                numero: "117", 
-                titulo: "As with Gladness Men of Old", 
-                autores: "William C. Dix" 
-            },
-            { 
-                numero: "118", 
-                titulo: "What Child Is This", 
-                autores: "William C. Dix" 
-            },
-            { 
-                numero: "197", 
-                titulo: "Rejoice, the Lord Is King", 
-                autores: "Charles Wesley" 
-            },
-            { 
-                numero: "280", 
-                titulo: "Jesus, Keep Me Near the Cross", 
-                autores: "Fanny J. Crosby" 
-            },
-            { 
-                numero: "479", 
-                titulo: "Children of God", 
-                autores: "Anderson T. Dailey" 
-            }
-        ];
-
-        // Función para ordenar los himnos por número (para que estén en orden)
-        himnos.sort((a, b) => parseInt(a.numero) - parseInt(b.numero));
-
-        // Función para mostrar los himnos en la lista
-        function mostrarHimnos() {
-            const lista = document.getElementById('lista-himnos');
-            lista.innerHTML = ''; // Limpiar la lista antes de volver a llenarla
-
-            himnos.forEach(himno => {
-                // Crear un elemento de lista (<li>)
-                const li = document.createElement('li');
-                
-                // Crear el contenido con número, título y autor
-                li.innerHTML = `
-                    <a href="javascript:void(0);">${himno.numero}. ${himno.titulo}</a>
-                    <div class="himno-autor">${himno.autores}</div>
-                `;
-                
-                // Añadirlo a la lista
-                lista.appendChild(li);
-            });
-        }
-
-        // Ejecutar la función cuando la página cargue
-        mostrarHimnos();
-    </script>
 </body>
 </html>
