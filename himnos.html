@@ -179,11 +179,11 @@
             margin: 15px 0;
             text-align: center;
         }
-
+        
         .separador-estrofa {
-    height: 1.2em;
-    width: 100%;
-}
+            height: 1.2em;
+            width: 100%;
+        }
         
         .no-seleccionado {
             text-align: center;
@@ -276,14 +276,24 @@
     </div>
 
     <script>
-        // ===== BASE DE DATOS DE HIMNOS (PRIMEROS 50) =====
+        // ===== FUNCIÓN PARA GENERAR SLUG (a partir del título) =====
+        function generarSlug(titulo) {
+            return titulo
+                .toLowerCase()
+                .replace(/[¿?¡!]/g, '')           // quitar signos de interrogación/exclamación
+                .replace(/[^a-z0-9\s-]/g, '')      // quitar otros caracteres especiales
+                .replace(/\s+/g, '-')               // espacios a guiones
+                .replace(/-+/g, '-');                // evitar guiones múltiples
+        }
+
+        // ===== BASE DE DATOS DE HIMNOS (PRIMEROS 100) =====
         const himnos = [
             { 
-                numero: "1",
                 titulo: "A Cristo Coronad",
                 fuente: "HG",
                 numeroOriginal: "59",
                 autores: "HG 59",
+                slug: generarSlug("A Cristo Coronad"),
                 letra: `A Cristo coronad, divino Salvador;
 Sentado en alta majestad es digno de loor;
 Al Rey de gloria y paz loores tributad,
@@ -300,11 +310,11 @@ A Él solo adorad, Señor de salvación;
 Loor eterno tributad de todo corazón.`
             },
             { 
-                numero: "2",
                 titulo: "A Dios Demos Gloria",
                 fuente: "HB",
                 numeroOriginal: "22",
                 autores: "HB 22",
+                slug: generarSlug("A Dios Demos Gloria"),
                 letra: `A Dios demos gloria, pues grande es él;
 Su amor es inmenso y a su Hijo nos dio:
 Quien fue a la cruz do sufrió muerte cruel,
@@ -327,11 +337,11 @@ Mas nuestro asombro será aún mayor
 Al ver a Jesús que en su gloria vendrá.`
             },
             { 
-                numero: "3",
                 titulo: "A Dios el Padre Celestial",
                 fuente: "HB",
                 numeroOriginal: "4",
                 autores: "HB 4",
+                slug: generarSlug("A Dios el Padre Celestial"),
                 letra: `A Dios el Padre celestial,
 Al Hijo nuestro Redentor,
 Y al eternal Consolador,
@@ -353,11 +363,11 @@ Tu adoración se escuchará
 Por toda la eternidad.`
             },
             { 
-                numero: "4",
                 titulo: "A Dios Sea la Gloria",
                 fuente: "HAC",
                 numeroOriginal: "48",
                 autores: "HAC 48",
+                slug: generarSlug("A Dios Sea la Gloria"),
                 letra: `A Dios sea la gloria, a Dios sea la gloria;
 A Dios sea la gloria por lo que hizo por mí;
 Con su sangre me ha limpiado, su poder me ha salvado,
@@ -369,11 +379,11 @@ Con su sangre me ha limpiado, su poder me ha salvado,
 A Dios sea la gloria por lo que hizo por mí.`
             },
             { 
-                numero: "5",
                 titulo: "A Jesucristo Ven Sin Tardar",
                 fuente: "HB",
                 numeroOriginal: "196",
                 autores: "HB 196",
+                slug: generarSlug("A Jesucristo Ven Sin Tardar"),
                 letra: `A Jesucristo ven sin tardar,
 Que entre nosotros hoy él está,
 Y te convida con dulce afán,
@@ -396,11 +406,11 @@ Tal vez mañana no habrá lugar,
 No te detengas: "Ven."`
             },
             { 
-                numero: "6",
                 titulo: "¿A QUIÉN IRÉ?",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("¿A QUIÉN IRÉ?"),
                 letra: `¿A quién iré en necesidad?
 ¿A quién iré en busca de paz?
 ¿Y quién podrá mi vida saciar de verdad?
@@ -416,11 +426,11 @@ Camino al Padre y verdad eres Tú
 Cristo ¿A dónde más podría ir?`
             },
             { 
-                numero: "7",
                 titulo: "ABRE MIS OJOS OH CRISTO",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("ABRE MIS OJOS OH CRISTO"),
                 letra: `//Abre mis ojos Oh Cristo
 Abre mis ojos Señor
 Yo quiero verte
@@ -437,11 +447,11 @@ Sobre tu pueblo Padre Santo//
 Yo quiero Verte`
             },
             { 
-                numero: "8",
                 titulo: "ADORAD AL CORDERO SANTO",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("ADORAD AL CORDERO SANTO"),
                 letra: `Adorad al Cordero Santo
 Adorad al supremo Rey
 Adorad al Cordero Santo
@@ -456,11 +466,11 @@ Todo pueblo sabrá
 Que unidos adoramos al Rey`
             },
             { 
-                numero: "9",
                 titulo: "AGUA VIVA",
                 fuente: "HG",
                 numeroOriginal: "75",
                 autores: "HG 75",
+                slug: generarSlug("AGUA VIVA"),
                 letra: `¿Muy sediento y vacío?
 Ven y bebe agua viva.
 ¿Quebrantado y cargado?
@@ -488,11 +498,11 @@ Soy amado, perdonado;
 Cristo es el agua viva.`
             },
             { 
-                numero: "10",
                 titulo: "AL CRISTO REGRESAR",
                 fuente: "SGM",
                 numeroOriginal: "",
                 autores: "SGM",
+                slug: generarSlug("AL CRISTO REGRESAR"),
                 letra: `Al Cristo regresar, la espera acabará
 Postrados a sus pies, en Él nos saciará
 Jesús gobernará y todo nuevo hará
@@ -518,11 +528,11 @@ Revelará Su gloria y gozo eternal
 Oh, cuánto ansiamos ver que vuelva`
             },
             { 
-                numero: "11",
                 titulo: "AL CRISTO VIVO SIRVO",
                 fuente: "HB",
                 numeroOriginal: "518",
                 autores: "HB 518",
+                slug: generarSlug("AL CRISTO VIVO SIRVO"),
                 letra: `Al Cristo vivo sirvo y él en el mundo está;
 Aunque otros lo negaren yo sé que él vive ya.
 Su mano tierna veo, su voz consuelo da,
@@ -545,11 +555,11 @@ La única esperanza es del mundo pecador,
 No hay otro tan amante como el Señor.`
             },
             { 
-                numero: "12",
                 titulo: "AL ESTAR ANTE TI",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("AL ESTAR ANTE TI"),
                 letra: `Al estar ante Ti
 Adorando frente al mar de cristal
 Entre la multitud
@@ -569,11 +579,11 @@ Reina por los siglos con poder
 Todo lo que existe es por Él`
             },
             { 
-                numero: "13",
                 titulo: "AL ESTAR AQUÍ",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("AL ESTAR AQUÍ"),
                 letra: `Al estar en la presencia de tu divinidad
 Y al contemplar la hermosura de tu santidad
 Mi espíritu se alegra en tu majestad
@@ -592,11 +602,11 @@ Te adoro a Ti, Señor
 Te adoro a Ti`
             },
             { 
-                numero: "14",
                 titulo: "¡AL MUNDO PAZ NACIÓ JESÚS!",
                 fuente: "HB",
                 numeroOriginal: "76",
                 autores: "HB 76",
+                slug: generarSlug("¡AL MUNDO PAZ NACIÓ JESÚS!"),
                 letra: `¡Al mundo paz, nació Jesús!
 Nació ya nuestro Rey;
 El corazón ya tiene luz,
@@ -619,11 +629,11 @@ su amor y su poder,
 Su amor, su amor y su poder.`
             },
             { 
-                numero: "15",
                 titulo: "AL QUE ME CIÑE DE PODER",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("AL QUE ME CIÑE DE PODER"),
                 letra: `// Al que me ciñe de poder
 Aquel que mi victoria es
 Solo a Él alabaré, solo a Él exaltaré //
@@ -633,11 +643,11 @@ En la congregación
 cantaré y alabaré Tu nombre, Señor //`
             },
             { 
-                numero: "16",
                 titulo: "AL REY ADORAD",
                 fuente: "HG/HAC",
                 numeroOriginal: "56; 23",
                 autores: "HG 56; HAC 23",
+                slug: generarSlug("AL REY ADORAD"),
                 letra: `Al Rey adorad, grandioso Señor,
 Y con gratitud cantad de Su amor.
 Anciano de días, el gran Defensor,
@@ -659,11 +669,11 @@ Tu misericordia ¡Cuán firme! ¡Cuán fiel!
 Creador, Salvador y Amigo es Él.`
             },
             { 
-                numero: "17",
                 titulo: "AL ÚNICO QUE ES DIGNO",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("AL ÚNICO QUE ES DIGNO"),
                 letra: `Al único que es digno de recibir
 Honra y gloria, fuerza y poder.
 Al Dios Padre celestial, invisible pero real,
@@ -675,11 +685,11 @@ Adoramos Tu nombre, nos rendimos a Tus pies,
 consagramos todo nuestro ser a Ti`
             },
             { 
-                numero: "18",
                 titulo: "ALABA AL PADRE",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("ALABA AL PADRE"),
                 letra: `Dios Soberano sin pecar
 Te adora toda tu creación
 Delante de tu trono caen
@@ -705,11 +715,11 @@ Su paz como aguas fluye hoy
 Tuya es la gloria Por siempre//`
             },
             { 
-                numero: "19",
                 titulo: "ALABAD A JEHOVÁ",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("ALABAD A JEHOVÁ"),
                 letra: `¡Alabad a Jehová!
 Habitantes de la tierra
 Alabad al Señor
@@ -727,22 +737,22 @@ Nos dio vida eterna
 ¡Alabadle, alabadle, alabadle!`
             },
             { 
-                numero: "20",
                 titulo: "ALABAD A JEHOVÁ (Salmo 117)",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("ALABAD A JEHOVÁ (Salmo 117)"),
                 letra: `Alabad a Jehová, naciones todas, pueblos todos, alabadle
 Porque ha engrandecido sobre nosotros Su misericordia
 Y la verdad de Jehová es para siempre, aleluya, amén
 Y la verdad de Jehová es para siempre, aleluya, amén`
             },
             { 
-                numero: "21",
                 titulo: "ALABAD AL GRAN REY",
                 fuente: "HG",
                 numeroOriginal: "22",
                 autores: "HG 22",
+                slug: generarSlug("ALABAD AL GRAN REY"),
                 letra: `Solemnes resuenen las voces de amor,
 Con gran regocijo tributen loor.
 Al Rey Soberano, el buen Salvador;
@@ -770,11 +780,11 @@ Con notas alegres vendrá a reinar;
 A Su eterna gloria nos ha de llevar.`
             },
             { 
-                numero: "22",
                 titulo: "ALABAD, SIERVOS DE JEHOVÁ",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("ALABAD, SIERVOS DE JEHOVÁ"),
                 letra: `/Alabad. siervos de Jehová,
 Alabad el nombre de Jehová//
 
@@ -784,11 +794,11 @@ Desde que nace el sol hasta que se pone
 Sea alabado el Señor.`
             },
             { 
-                numero: "23",
                 titulo: "ALABANZAS AL REY",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("ALABANZAS AL REY"),
                 letra: `Hoy vengo a ofrecerme postrado ante ti
 Mi corazón puede estar ahí
 El cielo se viste de gala
@@ -808,11 +818,11 @@ Pues al mundo ha llegado el regalo de Dios
 Paz y salvación`
             },
             { 
-                numero: "24",
                 titulo: "ALABARÉ ALABARÉ",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("ALABARÉ ALABARÉ"),
                 letra: `// Alabaré, alabaré, alabaré, alabaré, alabaré a mi Señor //
 
 Juan vio el número de los redimidos
@@ -821,11 +831,11 @@ Unos oraban, otros cantaban
 Y todos alababan al Señor`
             },
             { 
-                numero: "25",
                 titulo: "ALCANCE SALVACIÓN",
                 fuente: "HB",
                 numeroOriginal: "330",
                 autores: "HB 330",
+                slug: generarSlug("ALCANCE SALVACIÓN"),
                 letra: `De paz inundada mi senda ya esté,
 O cúbrala un mar de aflicción,
 Mi suerte cualquiera que sea, diré:
@@ -850,11 +860,11 @@ Desciende Jesús con su gran majestad,
 ¡Aleluya! Estoy bien con mi Dios.`
             },
             { 
-                numero: "26",
                 titulo: "ALCANZARÉ A MI FAMILIA PARA CRISTO",
                 fuente: "HAC",
                 numeroOriginal: "319",
                 autores: "HAC 319",
+                slug: generarSlug("ALCANZARÉ A MI FAMILIA PARA CRISTO"),
                 letra: `La Biblia cuenta muchas historias sobre el amor de Dios para el hogar.
 José y María, Abraham y Sara, hogares bendecidos por Dios.
 Nuestra familia él quiere redimir,
@@ -872,11 +882,11 @@ Nos toca a ti y a mí el compartir
 La salvación inmensa que Dios nos dio.`
             },
             { 
-                numero: "27",
                 titulo: "ALELUYA (Agnus dei)",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("ALELUYA (Agnus dei)"),
                 letra: `Aleluya, aleluya
 Reinas Tú, poderoso Dios
 Aleluya, aleluya
@@ -891,11 +901,11 @@ El Señor Dios poderoso
 Digno eres Tú, digno eres Tú Amén`
             },
             { 
-                numero: "28",
                 titulo: "ALELUYA",
                 fuente: "HB",
                 numeroOriginal: "435",
                 autores: "HB 435",
+                slug: generarSlug("ALELUYA HB 435"),
                 letra: `Aleluya, aleluya, aleluya, aleluya,
 Aleluya, aleluya, aleluya, aleluya.
 
@@ -909,11 +919,11 @@ El es digno, él es digno, él es digno, él es digno,
 El es digno, él es digno, él es digno, él es digno.`
             },
             { 
-                numero: "29",
                 titulo: "ALLÍ NO HABRÁ TRIBULACIÓN",
                 fuente: "HB",
                 numeroOriginal: "503",
                 autores: "HB 503",
+                slug: generarSlug("ALLÍ NO HABRÁ TRIBULACIÓN"),
                 letra: `En la mansión do Cristo está,
 Allí no habrá tribulación;
 Ningún pesar, ningún dolor,
@@ -941,11 +951,11 @@ Y ya con Cristo reinaré
 Por toda la eternidad`
             },
             { 
-                numero: "30",
                 titulo: "ANGELES CANTANDO ESTÁN",
                 fuente: "HB",
                 numeroOriginal: "67",
                 autores: "HB 67",
+                slug: generarSlug("ANGELES CANTANDO ESTÁN"),
                 letra: `Angeles cantando están tan dulcísima canción;
 Las montañas su eco dan como fiel contestación.
 
@@ -959,11 +969,11 @@ Cuan glorioso es el cantar de su melodiosa voz.
 A Jesús, autor del bien, al recién nacido Rey.`
             },
             { 
-                numero: "31",
                 titulo: "ANHELO TRABAJAR POR EL SEÑOR",
                 fuente: "HB",
                 numeroOriginal: "362",
                 autores: "HB 362",
+                slug: generarSlug("ANHELO TRABAJAR POR EL SEÑOR"),
                 letra: `Anhelo trabajar por el Señor,
 Confiando en su palabra y en su amor,
 Quiero yo cantar y orar,
@@ -988,11 +998,11 @@ Hallará también lugar
 En la viña del Señor.`
             },
             { 
-                numero: "32",
                 titulo: "ANTE EL TRONO CELESTIAL",
                 fuente: "SGM/HG",
                 numeroOriginal: "92",
                 autores: "SGM; HG 92",
+                slug: generarSlug("ANTE EL TRONO CELESTIAL"),
                 letra: `Ante el trono celestial
 Él intercede hoy por mí
 Gran Sacerdote es Jesús
@@ -1024,11 +1034,11 @@ En Cristo Dios, mi Salvador
 En Cristo Dios, mi Salvador`
             },
             { 
-                numero: "33",
                 titulo: "AÑOS MI ALMA EN VANIDAD VIVIÓ",
                 fuente: "HB",
                 numeroOriginal: "176",
                 autores: "HB 176",
+                slug: generarSlug("AÑOS MI ALMA EN VANIDAD VIVIÓ"),
                 letra: `Años mi alma en vanidad vivió,
 Ignorando a quien por mí sufrió,
 Oh que en el Calvario sucumbió,
@@ -1055,11 +1065,11 @@ Por los siglos siempre cantaré
 Al Salvador.`
             },
             { 
-                numero: "34",
                 titulo: "AQUEL QUIEN LA BUENA OBRA EMPEZÓ",
                 fuente: "HAC",
                 numeroOriginal: "289",
                 autores: "HAC 289",
+                slug: generarSlug("AQUEL QUIEN LA BUENA OBRA EMPEZÓ"),
                 letra: `//Aquel quien la buena obra empezó.//
 
 //Será fiel en completarla,//
@@ -1072,11 +1082,11 @@ Seguro estás, nunca te ha de abandonar;
 Eres su gozo y su gran tesoro aquí.`
             },
             { 
-                numero: "35",
                 titulo: "AQUÍ ESTOY",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("AQUÍ ESTOY primera"),
                 letra: `//Aquí estoy con manos alzadas vengo
 Pues Tú todo lo diste por mí
 Aquí estoy mi alma a Ti entrego
@@ -1103,11 +1113,11 @@ Declararé tus promesas
 Me acerco a Ti`
             },
             { 
-                numero: "36",
-                titulo: "AQUÍ ESTOY",
+                titulo: "AQUÍ ESTOY (HAC 44)",
                 fuente: "HAC",
                 numeroOriginal: "44",
                 autores: "HAC 44",
+                slug: generarSlug("AQUÍ ESTOY HAC 44"),
                 letra: `Aquí estoy, ante tu altar, en tu presencia es donde quiero estar.
 No espero más, tan sólo estar en las delicias de tu diestra.
 
@@ -1117,22 +1127,22 @@ Quiero ser un sacerdote que ministre día y noche.
 Quiero ser un sacrificio agradable a ti, ante tu altar.//`
             },
             { 
-                numero: "37",
                 titulo: "ASOMBROSO DIOS",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("ASOMBROSO DIOS"),
                 letra: `Mi Dios, majestuoso Dios
 Del cielo, gobierna él
 Con Gloria, Poder y Amor
 Mi Dios, majestuoso es`
             },
             { 
-                numero: "38",
                 titulo: "AYÚDAME A MIRAR CON TUS OJOS",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("AYÚDAME A MIRAR CON TUS OJOS"),
                 letra: `Ayúdame a mirar con tus ojos
 Yo quiero sentir con tu corazón
 No quiero vivir más siendo insensible
@@ -1144,11 +1154,11 @@ Ahora me humillo y busco tu rostro
 ¿A quién iré Señor? Sino a Ti`
             },
             { 
-                numero: "39",
                 titulo: "BELLAS PALABRAS DE VIDA",
                 fuente: "HB",
                 numeroOriginal: "143",
                 autores: "HB 143",
+                slug: generarSlug("BELLAS PALABRAS DE VIDA"),
                 letra: `¡Oh, cantádmelas otra vez!
 Bellas palabras de vida;
 Hallo en ellas mi gozo y luz,
@@ -1175,11 +1185,11 @@ Bellas palabras de vida.
 Sí, de luz y vida son sostén y guía;`
             },
             { 
-                numero: "40",
                 titulo: "BENDECIRÉ AL SEÑOR",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("BENDECIRÉ AL SEÑOR"),
                 letra: `//Bendeciré al Señor
 Dios de mi salvacion
 el ha sido tan bueno para mi.
@@ -1193,11 +1203,11 @@ en todo tiempo en todo lugar
 bendecire a mi señor.`
             },
             { 
-                numero: "41",
                 titulo: "BENDICE ALMA MÍA (Salmo 103)",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("BENDICE ALMA MÍA (Salmo 103)"),
                 letra: `Bendice alma mía a Jehová //y bendiga todo mi ser//
 Su santo nombre
 
@@ -1205,11 +1215,11 @@ Su santo nombre
 y no olvides ninguno de sus beneficios//`
             },
             { 
-                numero: "42",
                 titulo: "BENDITO DIOS",
                 fuente: "HAC",
                 numeroOriginal: "42",
                 autores: "HAC 42",
+                slug: generarSlug("BENDITO DIOS"),
                 letra: `Bendito Dios, bendito eres Señor.
 Bendito Dios, bendito mi Salvador.
 Eres mi roca, mi fortaleza, eres mi protector.
@@ -1219,11 +1229,11 @@ Eres mi roca, mi fortaleza, eres mi protector.
 Eres eterno, rey poderoso, de tu pueblo Señor, Jesús.`
             },
             { 
-                numero: "43",
                 titulo: "BENDITO SEA JEHOVÁ",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("BENDITO SEA JEHOVÁ"),
                 letra: `Bendito sea Jehová
 Quién adiestra mis manos a pelear
 Bendito sea Jehová
@@ -1235,11 +1245,11 @@ Mi Gloria, mi Fuerza
 En Él confiaré`
             },
             { 
-                numero: "44",
                 titulo: "BUENO ES ALABARTE JEHOVÁ",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("BUENO ES ALABARTE JEHOVÁ"),
                 letra: `//Bueno es alabarte, Jehová, y cantar salmos a tu nombre//
 
 //Anunciar por la mañana tu misericordia y tu fidelidad de noche//
@@ -1250,11 +1260,11 @@ En Él confiaré`
 //Anunciar por la mañana tu misericordia y tu fidelidad de noche//`
             },
             { 
-                numero: "45",
                 titulo: "BUENO ES ALABARTE SEÑOR",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("BUENO ES ALABARTE SEÑOR"),
                 letra: `Bueno es alabar, oh, Señor
 Tu nombre
 Darte gloria, honra y honor
@@ -1269,11 +1279,11 @@ Grande es tu amor
 Grande es tu gloria`
             },
             { 
-                numero: "46",
                 titulo: "BUENO ES DIOS",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("BUENO ES DIOS"),
                 letra: `Bueno es Dios siempre fiel
 Puso un canto nuevo en mi corazón
 Bueno es Dios siempre fiel
@@ -1301,11 +1311,11 @@ Mi dueño eres tú
 Y por la fe veo claramente que`
             },
             { 
-                numero: "47",
                 titulo: "BUSCAD PRIMERO",
                 fuente: "HB",
                 numeroOriginal: "373",
                 autores: "HB 373",
+                slug: generarSlug("BUSCAD PRIMERO"),
                 letra: `Buscad primero el reino de Dios Y su perfecta justicia,
 Y lo demás añadido será. Aleluya, aleluya.
 
@@ -1317,11 +1327,11 @@ Buscad y hallaréis
 Llamad, llamad y la puerta se abrirá Aleluya, aleluya.`
             },
             { 
-                numero: "48",
                 titulo: "CADA MAÑANA AL DESPERTAR",
                 fuente: "",
                 numeroOriginal: "",
                 autores: "",
+                slug: generarSlug("CADA MAÑANA AL DESPERTAR"),
                 letra: `Cada mañana al despertar
 Y por la noche al descansar
 Agradezco tus bondades a mi vida
@@ -1331,11 +1341,11 @@ Por todo lo que me permites disfrutar
 Agradecido estoy por tu bondad //`
             },
             { 
-                numero: "49",
                 titulo: "CANTA",
                 fuente: "SGM",
                 numeroOriginal: "",
                 autores: "SGM",
+                slug: generarSlug("CANTA"),
                 letra: `Si tuviste aliento al amanecer
 Y vida en tu interior
 Si Dios te sostiene con Su poder
@@ -1361,11 +1371,11 @@ Ante el Cordero todos caerán
 Los santos siempre cantarán ¡Sí, siempre vamos a cantar!`
             },
             { 
-                numero: "50",
                 titulo: "CANTA A DIOS CON ALEGRÍA",
                 fuente: "HB",
                 numeroOriginal: "290",
                 autores: "HB 290",
+                slug: generarSlug("CANTA A DIOS CON ALEGRÍA"),
                 letra: `Canta a Dios con alegría el mensaje del Señor,
 De la verdadera vida que nos da con tanto amor.
 Cada historia de la Biblia nos relata su poder;
@@ -1382,12 +1392,12 @@ Que los hombres todos sepan de Jesús y su bondad,
 Que su amor sincero y puro quiere darles libertad`
             },
             { 
-        numero: "51",
-        titulo: "CANTARÉ LA BELLA HISTORIA",
-        fuente: "HB",
-        numeroOriginal: "452",
-        autores: "HB 452",
-        letra: `Cantaré la bella historia que Jesús murió por mí;
+                titulo: "CANTARÉ LA BELLA HISTORIA",
+                fuente: "HB",
+                numeroOriginal: "452",
+                autores: "HB 452",
+                slug: generarSlug("CANTARÉ LA BELLA HISTORIA"),
+                letra: `Cantaré la bella historia que Jesús murió por mí;
 Cómo allá en el Calvario dio su sangre carmesí.
 
 CORO
@@ -1402,14 +1412,14 @@ Del pecado y los temores su poder me libertó.
 
 En el río de la muerte el Señor me guardará.
 Es su amor tan fiel y fuerte, que jamás me dejará.`
-    },
-    { 
-        numero: "52",
-        titulo: "CANTEN CON ALEGRÍA",
-        fuente: "HB",
-        numeroOriginal: "462",
-        autores: "HB 462",
-        letra: `Canten con alegría las alabanzas de Cristo el Rey;
+            },
+            { 
+                titulo: "CANTEN CON ALEGRÍA",
+                fuente: "HB",
+                numeroOriginal: "462",
+                autores: "HB 462",
+                slug: generarSlug("CANTEN CON ALEGRÍA"),
+                letra: `Canten con alegría las alabanzas de Cristo el Rey;
 Anden en los caminos que nos mostrara su augusta grey.
 Vivan los redimidos en las victorias del Vencedor;
 Para que todos juntos veamos las glorias del Redentor.
@@ -1428,14 +1438,14 @@ Ahora ya no estoy triste sino que vivo siempre feliz,
 Con la dulce esperanza de que algún día iré al país,
 Ese país amado donde moradas fue a preparar:
 Cristo, el Pastor eterno, que a sus ovejas vino a salvar.`
-    },
-    { 
-        numero: "53",
-        titulo: "CANTEN DEL AMOR DE CRISTO",
-        fuente: "HB",
-        numeroOriginal: "498",
-        autores: "HB 498",
-        letra: `Canten del amor de Cristo, ensalzad al Redentor,
+            },
+            { 
+                titulo: "CANTEN DEL AMOR DE CRISTO",
+                fuente: "HB",
+                numeroOriginal: "498",
+                autores: "HB 498",
+                slug: generarSlug("CANTEN DEL AMOR DE CRISTO"),
+                letra: `Canten del amor de Cristo, ensalzad al Redentor,
 Tributadle, santos todos, grande gloria y loor.
 
 CORO
@@ -1451,14 +1461,14 @@ De victoria en victoria, siempre firmes avanzad
 
 Adelante en la lucha, ¡oh soldados de la fe!
 Nuestro el triunfo, oh, escucha los clamores, ¡Viva el Rey!`
-    },
-    { 
-        numero: "54",
-        titulo: "CAMBIARÉ MI TRISTEZA",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `Cambiaré mi tristeza
+            },
+            { 
+                titulo: "CAMBIARÉ MI TRISTEZA",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CAMBIARÉ MI TRISTEZA"),
+                letra: `Cambiaré mi tristeza
 Cambiaré mi vergüenza
 Los entregaré, por el gozo de Dios
 Cambiaré mi dolor y mi enfermedad
@@ -1473,14 +1483,14 @@ Pues yo sé a quién voy
 En su gozo fuerte soy
 Aunque triste en la noche yo este
 Gozo viene en la mañana`
-    },
-    { 
-        numero: "55",
-        titulo: "CASTILLO FUERTE",
-        fuente: "SGM",
-        numeroOriginal: "",
-        autores: "SGM",
-        letra: `Castillo fuerte es nuestro Dios
+            },
+            { 
+                titulo: "CASTILLO FUERTE",
+                fuente: "SGM",
+                numeroOriginal: "",
+                autores: "SGM",
+                slug: generarSlug("CASTILLO FUERTE SGM"),
+                letra: `Castillo fuerte es nuestro Dios
 Escudo siempre fiel
 Y en la prueba y tempestad
 Es firme Su poder
@@ -1499,14 +1509,14 @@ Pues mi confianza está en Aquel
 Que reina con poder
 Por mi pelea el Soberano Dios
 Por siempre la victoria Suya es`
-    },
-    { 
-        numero: "56",
-        titulo: "CASTILLO FUERTE ES NUESTRO DIOS",
-        fuente: "HB",
-        numeroOriginal: "26",
-        autores: "HB 26",
-        letra: `Castillo fuerte es nuestro Dios,
+            },
+            { 
+                titulo: "CASTILLO FUERTE ES NUESTRO DIOS",
+                fuente: "HB",
+                numeroOriginal: "26",
+                autores: "HB 26",
+                slug: generarSlug("CASTILLO FUERTE ES NUESTRO DIOS"),
+                letra: `Castillo fuerte es nuestro Dios,
 Defensa y buen escudo.
 Con Su poder nos librará
 En este trance agudo.
@@ -1543,28 +1553,28 @@ De bienes y hogar,
 El cuerpo destruir,
 Mas siempre ha de existir
 De Dios el Reino eterno.`
-    },
-    { 
-        numero: "57",
-        titulo: "CELEBRAD A CRISTO",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `////Celebrad a Cristo, celebrad////
+            },
+            { 
+                titulo: "CELEBRAD A CRISTO",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CELEBRAD A CRISTO"),
+                letra: `////Celebrad a Cristo, celebrad////
 
 Él resucitó, Él resucitó Y por siempre, vivirá
 Él resucitó, Él resucitó
 
 ///Vamos a celebrar///
 El Señor resucitó`
-    },
-    { 
-        numero: "58",
-        titulo: "CIUDAD DE DIOS",
-        fuente: "HG",
-        numeroOriginal: "142",
-        autores: "HG 142",
-        letra: `Hay un lugar, al que mi alma, anhela tanto por llegar
+            },
+            { 
+                titulo: "CIUDAD DE DIOS",
+                fuente: "HG",
+                numeroOriginal: "142",
+                autores: "HG 142",
+                slug: generarSlug("CIUDAD DE DIOS"),
+                letra: `Hay un lugar, al que mi alma, anhela tanto por llegar
 Una ciudad, donde hay descanso, y gozo por la eternidad
 Se que pronto allá estaré, con mis ojos yo veré
 Aquel que vino, a rescatarme
@@ -1585,14 +1595,14 @@ Hay un lugar, donde su gloria satisface el corazón
 Recibiré la recompensa me abrazará mi Salvador
 Ya no hay llanto ni dolor no hay más prueba ni aflicción
 La muerte es solo, una memoria recuerdo de la redención`
-    },
-    { 
-        numero: "59",
-        titulo: "COMO EL CIERVO",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `Como el ciervo busca por las aguas
+            },
+            { 
+                titulo: "COMO EL CIERVO",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("COMO EL CIERVO"),
+                letra: `Como el ciervo busca por las aguas
 Así clama mi alma, por Ti Señor
 Día y noche, yo tengo sed de ti
 Y solo a ti buscaré
@@ -1601,14 +1611,14 @@ Lléname, lléname Señor
 Dame más, más de tu amor
 Yo tengo sed, solo de ti
 Lléname Señor`
-    },
-    { 
-        numero: "60",
-        titulo: "¿CÓMO PODRÉ ESTAR TRISTE?",
-        fuente: "HB",
-        numeroOriginal: "484",
-        autores: "HB 484",
-        letra: `¿Cómo podré estar triste? ¿Cómo entre sombras ir?
+            },
+            { 
+                titulo: "¿CÓMO PODRÉ ESTAR TRISTE?",
+                fuente: "HB",
+                numeroOriginal: "484",
+                autores: "HB 484",
+                slug: generarSlug("¿CÓMO PODRÉ ESTAR TRISTE?"),
+                letra: `¿Cómo podré estar triste? ¿Cómo entre sombras ir?
 ¿Cómo sentirme solo y en el dolor vivir?
 Si Cristo es mi consuelo, mi amigo siempre fiel,
 Si aun las aves tienen seguro asilo en él,
@@ -1629,14 +1639,14 @@ Más cerca de él camino, y protegido voy;
 Si en mí la fe desmaya y sufro de ansiedad,
 Tan sólo él me levanta, me da seguridad,
 Tan sólo él me levanta, me da seguridad.`
-    },
-    { 
-        numero: "61",
-        titulo: "COMPLETO ESTÁ",
-        fuente: "SGM",
-        numeroOriginal: "",
-        autores: "SGM",
-        letra: `¿Por qué habría de dudar
+            },
+            { 
+                titulo: "COMPLETO ESTÁ",
+                fuente: "SGM",
+                numeroOriginal: "",
+                autores: "SGM",
+                slug: generarSlug("COMPLETO ESTÁ"),
+                letra: `¿Por qué habría de dudar
 O en temor permanecer?
 Si gracia encontré en Jesús
 Claro es mi futuro en Él
@@ -1659,14 +1669,14 @@ No sé qué es lo que vendrá
 Sé que en Ti puedo confiar
 Me guardas hasta el final
 Hoy dejo todo el temor atrás`
-    },
-    { 
-        numero: "62",
-        titulo: "CON CÁNTICOS SEÑOR",
-        fuente: "HB",
-        numeroOriginal: "",
-        autores: "HB",
-        letra: `Con cánticos, Señor,
+            },
+            { 
+                titulo: "CON CÁNTICOS SEÑOR",
+                fuente: "HB",
+                numeroOriginal: "",
+                autores: "HB",
+                slug: generarSlug("CON CÁNTICOS SEÑOR"),
+                letra: `Con cánticos, Señor,
 Mi corazón y voz
 Te adoran con fervor,
 Oh Trino, Santo Dios.
@@ -1689,14 +1699,14 @@ Tú eres ¡oh Señor!
 Mi sumo, todo bien;
 Mil lenguas tu amor
 Cantando siempre estén.`
-    },
-    { 
-        numero: "63",
-        titulo: "CON MI DIOS",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `//Con mi Dios yo saltaré los muros
+            },
+            { 
+                titulo: "CON MI DIOS",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CON MI DIOS"),
+                letra: `//Con mi Dios yo saltaré los muros
 Con mi Dios ejércitos derribaré//
 
 Él adiestra mis manos para la batalla
@@ -1705,38 +1715,38 @@ Puedo tomar con mis manos el arco de bronce
 Él es la fuerza de mi salvación
 Mi alto refugio y mi fortaleza
 Él es mi libertador`
-    },
-    { 
-        numero: "64",
-        titulo: "CON MIS LABIOS Y MI VIDA",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `Con Mis Labios Y Mi Vida
+            },
+            { 
+                titulo: "CON MIS LABIOS Y MI VIDA",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CON MIS LABIOS Y MI VIDA"),
+                letra: `Con Mis Labios Y Mi Vida
 Te Alabo Señor, Te Alabo Señor
 Con Mis Labios Y Mi Vida Te Alabo, Bendito Señor
 Porque Tu Has Sido /// Precioso Para Mi ///
 Porque Tu Has Sido Preciosos Para Mi Te Alabo, Bendito Señor`
-    },
-    { 
-        numero: "65",
-        titulo: "CON MIS MANOS LEVANTADAS",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `Con mis manos levantadas hacia el cielo Me presento ante ti hoy mi Señor
+            },
+            { 
+                titulo: "CON MIS MANOS LEVANTADAS",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CON MIS MANOS LEVANTADAS"),
+                letra: `Con mis manos levantadas hacia el cielo Me presento ante ti hoy mi Señor
 Para recibir de ti la fuerza y el poder Para vivir junto a ti
 Llenas hoy mi corazón con tu presencia Llenas de alegría y paz todo mi ser
 De cualquier necesidad tú me responderás Por que me amas me amas
 Me amas`
-    },
-    { 
-        numero: "66",
-        titulo: "CONMIGO SÉ",
-        fuente: "HG",
-        numeroOriginal: "67",
-        autores: "HG 67",
-        letra: `Señor Jesús, el día ya se fue.
+            },
+            { 
+                titulo: "CONMIGO SÉ",
+                fuente: "HG",
+                numeroOriginal: "67",
+                autores: "HG 67",
+                slug: generarSlug("CONMIGO SÉ"),
+                letra: `Señor Jesús, el día ya se fue.
 La noche cierra, oh, conmigo sé.
 Sin otro amparo Tú, por compasión,
 Al desvalido das consolación.
@@ -1755,14 +1765,14 @@ Vea yo al fin en mi postrer visión
 De luz la senda que lleva a Sion,
 Será mi canto al triunfar la fe:
 “Jesús conmigo en vida y muerte fue”.`
-    },
-    { 
-        numero: "67",
-        titulo: "CONOZCO QUE ERES SANTO",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `Cuando mi corazón empieza a cantarte
+            },
+            { 
+                titulo: "CONOZCO QUE ERES SANTO",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CONOZCO QUE ERES SANTO"),
+                letra: `Cuando mi corazón empieza a cantarte
 Y mi espíritu puede adorarte
 Mis ojos te pueden mirar
 Mis oídos te pueden oír
@@ -1771,14 +1781,14 @@ Conozco que eres digno, digno, digno
 Eres engrandecido
 Majestuoso, mi Señor
 Conozco que eres Dios`
-    },
-    { 
-        numero: "68",
-        titulo: "CONSIDERA A AQUEL",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `Considera a Aquel que siendo igual a Dios se despojó
+            },
+            { 
+                titulo: "CONSIDERA A AQUEL",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CONSIDERA A AQUEL"),
+                letra: `Considera a Aquel que siendo igual a Dios se despojó
 Considera a Aquel que semejante al hombre descendió
 Considera a Aquel que se encarnó y debilidad sufrió
 Considera a Aquel que fue tentado en todo y no pecó
@@ -1802,14 +1812,14 @@ El Autor, Consumador
 mi fe preserva con poder, gracia y amor
 El Principio y Final
 por los siglos de los siglos reinará`
-    },
-    { 
-        numero: "69",
-        titulo: "CONSUMADO ES",
-        fuente: "SGM",
-        numeroOriginal: "",
-        autores: "SGM",
-        letra: `Miraste la gran expansión Tu lienzo de creador
+            },
+            { 
+                titulo: "CONSUMADO ES",
+                fuente: "SGM",
+                numeroOriginal: "",
+                autores: "SGM",
+                slug: generarSlug("CONSUMADO ES"),
+                letra: `Miraste la gran expansión Tu lienzo de creador
 Y en la oscuridad Tu voz Galaxias exhaló
 Un mar de estrellas ante Ti Tu luz la inmensidad llenó
 Y dijiste "Bueno es"
@@ -1830,14 +1840,14 @@ Yo miraré a la eternidad Donde no hay más dolor
 Veré al Cordero que murió En gloria y esplendor
 A casa Tú me llevarás Para ante el trono alabar
 Y dirás, "Ven a Mí" Y mi ser declara: Consumado es`
-    },
-    { 
-        numero: "70",
-        titulo: "CONTEMPLA A DIOS",
-        fuente: "SGM/HG",
-        numeroOriginal: "55",
-        autores: "SGM; HG 55",
-        letra: `¿Quién formó las olas al hablar?
+            },
+            { 
+                titulo: "CONTEMPLA A DIOS",
+                fuente: "SGM/HG",
+                numeroOriginal: "55",
+                autores: "SGM; HG 55",
+                slug: generarSlug("CONTEMPLA A DIOS"),
+                letra: `¿Quién formó las olas al hablar?
 ¿Quién contó la arena en el mar?
 Reyes, pueblos, tiemblan a Su voz
 La creación le rinde adoración
@@ -1862,14 +1872,14 @@ Ha triunfado y reina con poder
 
 ¡Reinarás por siempre!
 ¡Que Tu gloria brille hoy!`
-    },
-    { 
-        numero: "71",
-        titulo: "CORAZONES SIEMPRE ALEGRES",
-        fuente: "HB",
-        numeroOriginal: "217",
-        autores: "HB 217",
-        letra: `Corazones siempre alegres, rebosando gratitud;
+            },
+            { 
+                titulo: "CORAZONES SIEMPRE ALEGRES",
+                fuente: "HB",
+                numeroOriginal: "217",
+                autores: "HB 217",
+                slug: generarSlug("CORAZONES SIEMPRE ALEGRES"),
+                letra: `Corazones siempre alegres, rebosando gratitud;
 Somos los que a Dios amamos, redimida juventud.
 
 CORO
@@ -1885,14 +1895,14 @@ Con su gracia nos anima, nos levanta su bondad.
 
 En sus fuerzas llevaremos aún con gozo nuestra cruz;
 Luego con él cantaremos en la gloria de su luz.`
-    },
-    { 
-        numero: "72",
-        titulo: "CORDERO DE DIOS",
-        fuente: "HAC",
-        numeroOriginal: "127",
-        autores: "HAC 127",
-        letra: `Aquel que un día padeció por nosotros en la cruz,
+            },
+            { 
+                titulo: "CORDERO DE DIOS",
+                fuente: "HAC",
+                numeroOriginal: "127",
+                autores: "HAC 127",
+                slug: generarSlug("CORDERO DE DIOS"),
+                letra: `Aquel que un día padeció por nosotros en la cruz,
 Aquel que maltrataron y le hicieron morir,
 Mucha gente no sabía que era el Mesías en verdad,
 Que vino para darnos vida y darnos la luz.
@@ -1907,14 +1917,14 @@ Aquel que un día murió, nuestro gran Vencedor,
 Aquel que en su dolor entregó su amor,
 Mucha gente no entiende quién es este galardón,
 Es el camino, es la vida y la verdad.`
-    },
-    { 
-        numero: "73",
-        titulo: "CORRO A CRISTO",
-        fuente: "HG",
-        numeroOriginal: "72",
-        autores: "HG 72",
-        letra: `Corro a Cristo para huir del temor; mi amparo es Él, yo sé.
+            },
+            { 
+                titulo: "CORRO A CRISTO",
+                fuente: "HG",
+                numeroOriginal: "72",
+                autores: "HG 72",
+                slug: generarSlug("CORRO A CRISTO"),
+                letra: `Corro a Cristo para huir del temor; mi amparo es Él, yo sé.
 “Solo cree en Mí”, me dice en amor. Seguro así estaré.
 
 Corro a Cristo roto por dolor; abunda en Él la paz;
@@ -1931,14 +1941,14 @@ Corro a Cristo cuando hay tentación; yo tengo un escape en Él.
 
 Corro a Cristo avergonzado y encuentro un Defensor;
 Soportó la santa ira de Dios y hoy es mi intercesor.`
-    },
-    { 
-        numero: "74",
-        titulo: "CREO EN DIOS",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `¿Cómo puedes no creer en Dios?
+            },
+            { 
+                titulo: "CREO EN DIOS",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CREO EN DIOS"),
+                letra: `¿Cómo puedes no creer en Dios?
 ¿Cómo intentas ignorar su voz?
 Él ha dado muestras de sus grandes maravillas.
 ¿Puedes ver su poder?
@@ -1962,14 +1972,14 @@ Y aunque no lo puedas vislumbrar,
 Dios es siempre fiel hasta el final
 Porque ha prometido caminar a nuestro lado;
 Cerca está, porque Él es Dios.`
-    },
-    { 
-        numero: "75",
-        titulo: "CRISTO, EL ANCLA FIRME Y FUERTE",
-        fuente: "HG",
-        numeroOriginal: "153",
-        autores: "HG 153",
-        letra: `Cristo, el ancla firme y fuerte, en furiosa tempestad;
+            },
+            { 
+                titulo: "CRISTO, EL ANCLA FIRME Y FUERTE",
+                fuente: "HG",
+                numeroOriginal: "153",
+                autores: "HG 153",
+                slug: generarSlug("CRISTO, EL ANCLA FIRME Y FUERTE"),
+                letra: `Cristo, el ancla firme y fuerte, en furiosa tempestad;
 Cuando soplan fuertes dudas y mis velas no dan más.
 En la pena y en la tristeza, cuando sufra en el dolor;
 Yo me aferraré al ancla, pues jamás se moverá.
@@ -1991,14 +2001,14 @@ Todo calma será entonces, Ya no habrá más tempestad.
 
 Cristo, el puerto que nos salva para siempre fiel será;
 Confiaremos en el ancla, pues jamas se moverá.`
-    },
-    { 
-        numero: "76",
-        titulo: "CRISTO EL FUNDAMENTO",
-        fuente: "HAC",
-        numeroOriginal: "332",
-        autores: "HAC 332",
-        letra: `Todos hemos de colaborar en la obra de Dios.
+            },
+            { 
+                titulo: "CRISTO EL FUNDAMENTO",
+                fuente: "HAC",
+                numeroOriginal: "332",
+                autores: "HAC 332",
+                slug: generarSlug("CRISTO EL FUNDAMENTO"),
+                letra: `Todos hemos de colaborar en la obra de Dios.
 Todos hemos de santificar nuestra vida al Señor.
 Por la gracia que nos concedió cada cual debe obrar.
 Con valor, entusiasmo y amor la tarea se hará sobre
@@ -2016,53 +2026,53 @@ Trabajemos por edificar muchas vidas en Él.
 Tiempo es de plantar y regar, Dios dará el crecer.
 El esfuerzo de cada labor el Señor premiará.
 La corona de vida será la mejor recompensa en`
-    },
-    { 
-        numero: "77",
-        titulo: "CRISTO EL VICTORIOSO ES REY",
-        fuente: "HAC",
-        numeroOriginal: "135",
-        autores: "HAC 135",
-        letra: `//Cristo el victorioso es rey. Cristo el victorioso es rey.//
+            },
+            { 
+                titulo: "CRISTO EL VICTORIOSO ES REY",
+                fuente: "HAC",
+                numeroOriginal: "135",
+                autores: "HAC 135",
+                slug: generarSlug("CRISTO EL VICTORIOSO ES REY"),
+                letra: `//Cristo el victorioso es rey. Cristo el victorioso es rey.//
 
 Venció sobre la muerte con poder.
 Con cetro de justicia, por siempre reinará.
 
 //Cristo el victorioso es rey. Cristo el victorioso es rey.//`
-    },
-    { 
-        numero: "78",
-        titulo: "CRISTO ES LA PEÑA DE HOREB",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `//Cristo es la peña de Horeb que está brotando
+            },
+            { 
+                titulo: "CRISTO ES LA PEÑA DE HOREB",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CRISTO ES LA PEÑA DE HOREB"),
+                letra: `//Cristo es la peña de Horeb que está brotando
 Agua de vida saludable para ti//
 
 Ven, a tomarla que es más dulce que la miel
 Refresca el alma, refresca todo tu ser
 Cristo es la peña de Horeb que está brotando
 Agua de vida saludable para ti`
-    },
-    { 
-        numero: "79",
-        titulo: "CRISTO ESTÁ JUNTO A MÍ",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `//Cristo esta junto a mi y me guarda con poder //me guarda con poder//
+            },
+            { 
+                titulo: "CRISTO ESTÁ JUNTO A MÍ",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CRISTO ESTÁ JUNTO A MÍ"),
+                letra: `//Cristo esta junto a mi y me guarda con poder //me guarda con poder//
 //Cristo esta junto a mi y me guarda con poder Cristo me guarda con poder//
 
 ////no temeré no no ////
 //no temeré por que Cristo esta conmigo//`
-    },
-    { 
-        numero: "80",
-        titulo: "CRISTO, FIEL TE QUIERO SER",
-        fuente: "HB",
-        numeroOriginal: "333",
-        autores: "HB 333",
-        letra: `Cristo, fiel te quiero ser,
+            },
+            { 
+                titulo: "CRISTO, FIEL TE QUIERO SER",
+                fuente: "HB",
+                numeroOriginal: "333",
+                autores: "HB 333",
+                slug: generarSlug("CRISTO, FIEL TE QUIERO SER"),
+                letra: `Cristo, fiel te quiero ser,
 Dame el poder, dame el poder;
 Yo contigo quiero andar,
 Sin vacilar, sin vacilar.
@@ -2085,14 +2095,14 @@ Cada día quiero cumplir
 Tu voluntad, tu voluntad;
 Y servirte a ti, Señor,
 En humildad, en humildad.`
-    },
-    { 
-        numero: "81",
-        titulo: "CRISTO ME AMA",
-        fuente: "HB",
-        numeroOriginal: "511",
-        autores: "HB 511",
-        letra: `Cristo me ama, bien lo sé, su Palabra me hace ver,
+            },
+            { 
+                titulo: "CRISTO ME AMA",
+                fuente: "HB",
+                numeroOriginal: "511",
+                autores: "HB 511",
+                slug: generarSlug("CRISTO ME AMA"),
+                letra: `Cristo me ama, bien lo sé, su Palabra me hace ver,
 Que los niños son de aquel, quien es nuestro amigo fiel.
 
 CORO
@@ -2104,14 +2114,14 @@ El mis culpas quitará, y la entrada me dará.
 
 Cristo me ama, es verdad, y me cuida en su bondad;
 Cuando muera, bien lo sé: viviré allá con él.`
-    },
-    { 
-        numero: "82",
-        titulo: "CRISTO MI CRUZ HE TOMADO",
-        fuente: "HG",
-        numeroOriginal: "155",
-        autores: "HG 155",
-        letra: `Cristo, mi cruz he tomado, dejo el mundo y sigo a Ti;
+            },
+            { 
+                titulo: "CRISTO MI CRUZ HE TOMADO",
+                fuente: "HG",
+                numeroOriginal: "155",
+                autores: "HG 155",
+                slug: generarSlug("CRISTO MI CRUZ HE TOMADO"),
+                letra: `Cristo, mi cruz he tomado, dejo el mundo y sigo a Ti;
 Todo en Ti he encontrado, Todo has dado Tú por mí.
 Ya mis vanas ambiciones por amor de Ti dejé,
 Sin igual mi condición es por Ti, Dios, y cielo hallé.
@@ -2140,14 +2150,14 @@ Por la vida pasajera, con fe lucha en oración;
 En el cielo Dios te espera con eterno galardón.
 La jornada terminada vivirás con tu Señor,
 Tu esperanza ya alcanzada, siempre a Dios darás loor.`
-    },
-    { 
-        numero: "83",
-        titulo: "CRISTO MI SABIDURÍA",
-        fuente: "SGM",
-        numeroOriginal: "",
-        autores: "SGM",
-        letra: `Cristo mi sabiduría, me humilla no entender
+            },
+            { 
+                titulo: "CRISTO MI SABIDURÍA",
+                fuente: "SGM",
+                numeroOriginal: "",
+                autores: "SGM",
+                slug: generarSlug("CRISTO MI SABIDURÍA"),
+                letra: `Cristo mi sabiduría, me humilla no entender
 Tus caminos tan gloriosos, cada uno bueno es
 Si me siento agobiado, o ansioso en mi interior
 Que por gracia vea más claro: Tú eres Dios, yo no lo soy
@@ -2166,14 +2176,14 @@ Nunca vas a abandonarme, Tú eres Dios, por siempre fiel
 Despreciaba yo Tu rostro mas Tu sangre me compró
 Cantaré de Tus bondades, en Tu amor me gloriaré
 Cristo mi sabiduría, Tú eres Dios, te alabaré`
-    },
-    { 
-        numero: "84",
-        titulo: "CRISTO SIEMPRE MÍO SERÁ",
-        fuente: "HG",
-        numeroOriginal: "",
-        autores: "HG",
-        letra: `Dios mis días ha contado, Para caminar con Él,
+            },
+            { 
+                titulo: "CRISTO SIEMPRE MÍO SERÁ",
+                fuente: "HG",
+                numeroOriginal: "",
+                autores: "HG",
+                slug: generarSlug("CRISTO SIEMPRE MÍO SERÁ"),
+                letra: `Dios mis días ha contado, Para caminar con Él,
 Sin embargo busco al mundo, Decepcionando a mi Rey.
 Pero mi Dios me da esperanza, Y al caer me sostendrá,
 Cristo pagó todas mis faltas, Suyo siempre yo seré.
@@ -2197,14 +2207,14 @@ La esperanza vencerá; Cristo siempre mío será.//
 Y cuando llegue a la gloria, Junto al Rey caminaré,
 Mi corazón será completo, //Cristo siempre mío será.//
 Cristo siempre mío será.`
-    },
-    { 
-        numero: "85",
-        titulo: "CRISTO NUESTRA ESPERANZA EN VIDA O MUERTE",
-        fuente: "HG",
-        numeroOriginal: "",
-        autores: "HG",
-        letra: `Nuestra esperanza en vida y muerte Cristo es, Cristo es
+            },
+            { 
+                titulo: "CRISTO NUESTRA ESPERANZA EN VIDA O MUERTE",
+                fuente: "HG",
+                numeroOriginal: "",
+                autores: "HG",
+                slug: generarSlug("CRISTO NUESTRA ESPERANZA EN VIDA O MUERTE"),
+                letra: `Nuestra esperanza en vida y muerte Cristo es, Cristo es
 ¿En quién confía nuestro ser? Pues nuestras almas son de Él
 ¿Quién nos sostiene con poder? Todo decreto suyo es
 ¿Quién nos sustenta hasta el final? En su amor firme estaré
@@ -2225,14 +2235,14 @@ Y al morir yo cantaré: Vive Él, vive Él.
 Y en recompensa le veré, vida eterna hay en Él
 Y levantado yo seré, ya sin pecado estaré
 El gozo no terminará: con Cristo siempre estaré`
-    },
-    { 
-        numero: "86",
-        titulo: "CRISTO NUESTRA GLORIA",
-        fuente: "SGM",
-        numeroOriginal: "",
-        autores: "SGM",
-        letra: `Si nuestro descanso en el cielo está,
+            },
+            { 
+                titulo: "CRISTO NUESTRA GLORIA",
+                fuente: "SGM",
+                numeroOriginal: "",
+                autores: "SGM",
+                slug: generarSlug("CRISTO NUESTRA GLORIA"),
+                letra: `Si nuestro descanso en el cielo está,
 ¿Por qué temeremos la prueba o el mal?
 Ten calma y recuerda: si llega el final,
 El viaje se acorta y nos lleva al hogar.
@@ -2265,27 +2275,27 @@ Nuestra gloria Cristo es, nuestra esperanza fiel;
 Nuestra gloria Cristo es, nuestra esperanza fiel;
 No importa si hay penas o felicidad,
 ¡La luz de Su rostro más fuerte será!`
-    },
-    { 
-        numero: "87",
-        titulo: "CRISTO, TE EXALTO",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `Cristo, te exalto
+            },
+            { 
+                titulo: "CRISTO, TE EXALTO",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CRISTO, TE EXALTO"),
+                letra: `Cristo, te exalto
 Te proclamo mi Rey
 Y al estar hoy aquí, Señor Me rindo en adoración.
 
 ///Ven y toma el trono///
 Toma el trono de mi corazón.`
-    },
-    { 
-        numero: "88",
-        titulo: "CRISTO, TU AMOR",
-        fuente: "HAC",
-        numeroOriginal: "206",
-        autores: "HAC 206",
-        letra: `Cristo, tu amor me libertó.
+            },
+            { 
+                titulo: "CRISTO, TU AMOR",
+                fuente: "HAC",
+                numeroOriginal: "206",
+                autores: "HAC 206",
+                slug: generarSlug("CRISTO, TU AMOR"),
+                letra: `Cristo, tu amor me libertó.
 Cristo, tu poder me transformó.
 Cristo, tu amor me perdonó.
 Cristo, tu poder me levantó.
@@ -2295,14 +2305,14 @@ Abriendo el camino que me lleva hacia ti.
 Hoy con libertad puedo entrar y adorar.
 
 //¡Gracias por tu amor, Señor!//`
-    },
-    { 
-        numero: "89",
-        titulo: "CUAN FIRME CIMIENTO",
-        fuente: "HB",
-        numeroOriginal: "371",
-        autores: "HB 371",
-        letra: `¡Cuán firme cimiento se ha dado a la fe,
+            },
+            { 
+                titulo: "CUAN FIRME CIMIENTO",
+                fuente: "HB",
+                numeroOriginal: "371",
+                autores: "HB 371",
+                slug: generarSlug("CUAN FIRME CIMIENTO"),
+                letra: `¡Cuán firme cimiento se ha dado a la fe,
 De Dios en su eterna palabra de amor!
 ¿Qué más él pudiera en su libro añadir,
 Si todo a sus hijos lo ha dicho el Señor?
@@ -2321,14 +2331,14 @@ Al alma que anhele la paz que hay en mí,
 Jamás en sus luchas la habré de dejar;
 Si todo el infierno la quiere perder,
 ¡Yo nunca, no, nunca, la puedo olvidar!`
-    },
-    { 
-        numero: "90",
-        titulo: "CUAN GRANDE ES DIOS",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `El esplendor de un rey
+            },
+            { 
+                titulo: "CUAN GRANDE ES DIOS",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("CUAN GRANDE ES DIOS"),
+                letra: `El esplendor de un rey
 Vestido en majestad
 La tierra alegre está
 La tierra alegre está
@@ -2352,14 +2362,14 @@ Cordero y el León Cordero y el León
 Y tu nombre sobre todo es Tú eres digno de alabar
 Y mi ser dirá
 Cuán grande es Dios`
-    },
-    { 
-        numero: "91",
-        titulo: "¡CUÁN GRANDE ES ÉL!",
-        fuente: "HB",
-        numeroOriginal: "20",
-        autores: "HB 20",
-        letra: `Señor, mi Dios, al contemplar los cielos,
+            },
+            { 
+                titulo: "¡CUÁN GRANDE ES ÉL!",
+                fuente: "HB",
+                numeroOriginal: "20",
+                autores: "HB 20",
+                slug: generarSlug("¡CUÁN GRANDE ES ÉL!"),
+                letra: `Señor, mi Dios, al contemplar los cielos,
 El firmamento y las estrellas mil;
 Al oír tu voz en los potentes truenos
 Y ver brillar el sol en su cenit:
@@ -2384,14 +2394,14 @@ Cuando el Señor me llame a su presencia,
 Al dulce hogar, al cielo de esplendor,
 Le adoraré cantando la grandeza
 De su poder y su infinito amor:`
-    },
-    { 
-        numero: "92",
-        titulo: "CUAN PROFUNDO AMOR",
-        fuente: "HG",
-        numeroOriginal: "79",
-        autores: "HG 79",
-        letra: `¡Cuán profundo amor de Cristo, sin medida y sin fin!
+            },
+            { 
+                titulo: "CUAN PROFUNDO AMOR",
+                fuente: "HG",
+                numeroOriginal: "79",
+                autores: "HG 79",
+                slug: generarSlug("CUAN PROFUNDO AMOR"),
+                letra: `¡Cuán profundo amor de Cristo, sin medida y sin fin!
 Brama como mar rugiente al cubrirme todo a mí.
 Me rodea por completo la corriente de Tu amor,
 Y me guía a mi descanso, a Tu gloria celestial.
@@ -2409,14 +2419,14 @@ Y por ellos intercede ante el Trono celestial.
 En las luchas y las pruebas siempre me bendecirás.
 ¡Cuán profundo amor de Cristo, mi amigo y Salvador!
 A Tu Gloria Tú nos llevas y Tu amor no cesará.`
-    },
-    { 
-        numero: "93",
-        titulo: "CUANDO ALLÁ SE PASE LISTA",
-        fuente: "HB",
-        numeroOriginal: "504",
-        autores: "HB 504",
-        letra: `Cuando la trompeta suene en aquel día final,
+            },
+            { 
+                titulo: "CUANDO ALLÁ SE PASE LISTA",
+                fuente: "HB",
+                numeroOriginal: "504",
+                autores: "HB 504",
+                slug: generarSlug("CUANDO ALLÁ SE PASE LISTA"),
+                letra: `Cuando la trompeta suene en aquel día final,
 Y que el alba eterna rompa en claridad;
 Cuando las naciones salvas a su patria lleguen ya,
 Y que sea pasada lista, allí he de estar.
@@ -2434,14 +2444,14 @@ Trabajemos por el Maestro desde el alba al vislumbrar;
 Siempre hablemos de su amor y fiel bondad;
 Cuando todo aquí fenezca y nuestra obra cese ya,
 Y que sea pasada lista, allí he de estar.`
-    },
-    { 
-        numero: "94",
-        titulo: "CUANDO COMBATIDO POR LA ADVERSIDAD",
-        fuente: "HB",
-        numeroOriginal: "236",
-        autores: "HB 236",
-        letra: `Cuando combatido por la adversidad
+            },
+            { 
+                titulo: "CUANDO COMBATIDO POR LA ADVERSIDAD",
+                fuente: "HB",
+                numeroOriginal: "236",
+                autores: "HB 236",
+                slug: generarSlug("CUANDO COMBATIDO POR LA ADVERSIDAD"),
+                letra: `Cuando combatido por la adversidad
 Creas ya perdida tu felicidad,
 Mira lo que el cielo para ti guardó,
 Cuenta las riquezas que el Señor te dio.
@@ -2461,55 +2471,55 @@ Cuando de otros veas la prosperidad
 Y tus pies te lleven tras de su maldad,
 Cuenta las riquezas que tendrás por fe,
 Donde el polvo es oro que hollará tu pie.`
-    },
-    { 
-        numero: "95",
-        titulo: "DAME MÁS DE TI",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `Vengo a ti, mi buen Señor A rendir mi corazón
+            },
+            { 
+                titulo: "DAME MÁS DE TI",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("DAME MÁS DE TI"),
+                letra: `Vengo a ti, mi buen Señor A rendir mi corazón
 Quiero más de ti
 Toma mi necesidad
 Dame tu preciosa paz Quiero más de ti.
 
 ///Dame/// más de ti Bendito señor.
 ///Dame/// más de ti Quiero más de ti.`
-    },
-    { 
-        numero: "96",
-        titulo: "DAME UN NUEVO CORAZÓN",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `Dame un nuevo corazón, Señor
+            },
+            { 
+                titulo: "DAME UN NUEVO CORAZÓN",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("DAME UN NUEVO CORAZÓN"),
+                letra: `Dame un nuevo corazón, Señor
 Un corazón para adorarte
 Un corazón para servirte
 Dame un nuevo corazón
 
 Limpio, como el cristal Dulce, como la miel
 Un corazón que sea Como el tuyo, Señor`
-    },
-    { 
-        numero: "97",
-        titulo: "DAMOS HONOR A TI",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `Damos honor a ti, damos honor a ti Creador de vida eres tú
+            },
+            { 
+                titulo: "DAMOS HONOR A TI",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("DAMOS HONOR A TI"),
+                letra: `Damos honor a ti, damos honor a ti Creador de vida eres tú
 Damos honor a ti, damos honor a ti Porque no hay otro Dios como tú
 
 Rey de reyes, admirable, eres el principio y fin
 Soberano y sublime, eres nuestro salvador
 Damos honor a ti Damos honor a ti Porque no hay otro Dios como tu`
-    },
-    { 
-        numero: "98",
-        titulo: "DANOS UN BELLO HOGAR",
-        fuente: "HB",
-        numeroOriginal: "405",
-        autores: "HB 405",
-        letra: `Danos un bello hogar:
+            },
+            { 
+                titulo: "DANOS UN BELLO HOGAR",
+                fuente: "HB",
+                numeroOriginal: "405",
+                autores: "HB 405",
+                slug: generarSlug("DANOS UN BELLO HOGAR"),
+                letra: `Danos un bello hogar:
 Donde la Biblia se pueda ver;
 Donde tú amor bienestar nos dé:
 Donde en ti todos tengan fe.
@@ -2536,14 +2546,14 @@ Como Jesús los quiere ver
 A su amparo y así vencer.
 ¡Danos un bello hogar!
 ¡Danos un bello hogar!`
-    },
-    { 
-        numero: "99",
-        titulo: "DE GLORIA EN GLORIA",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `De gloria en gloria Te veo
+            },
+            { 
+                titulo: "DE GLORIA EN GLORIA",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("DE GLORIA EN GLORIA"),
+                letra: `De gloria en gloria Te veo
 Cuanto más te conozco
 Quiero saber más de ti
 Mi Dios Cual buen alfarero
@@ -2554,14 +2564,14 @@ Quiero ser más, como Tú
 Ver la vida, como Tú
 Saturarme de tu Espíritu
 y reflejar al mundo tu amor`
-    },
-    { 
-        numero: "100",
-        titulo: "DE TAL MANERA",
-        fuente: "",
-        numeroOriginal: "",
-        autores: "",
-        letra: `De tal manera me amó
+            },
+            { 
+                titulo: "DE TAL MANERA",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                slug: generarSlug("DE TAL MANERA"),
+                letra: `De tal manera me amó
 Que su vida no escatimó
 Hasta el final Él se entregó
 Y a la muerte fue, porque Él me amó
@@ -2575,12 +2585,14 @@ Por su amor, yo viviré
 De su amor, yo cantaré
 Con mi Jesús, caminaré
 Porque Él me amó a mí`
-    }
-
+            }
         ];
 
-        // Ordenar por número (por si acaso)
-        himnos.sort((a, b) => parseInt(a.numero) - parseInt(b.numero));
+        // ===== MAPA DE SLUGS PARA BÚSQUEDA RÁPIDA =====
+        const mapaSlugs = {};
+        himnos.forEach((himno, index) => {
+            mapaSlugs[himno.slug] = index;
+        });
 
         // Variables de estado
         let himnosFiltrados = [...himnos];
@@ -2595,10 +2607,11 @@ Porque Él me amó a mí`
             
             himnosFiltrados.forEach((himno, index) => {
                 const li = document.createElement('li');
-                li.className = himnoSeleccionado && himno.numero === himnoSeleccionado.numero ? 'seleccionado' : '';
-                li.onclick = () => seleccionarHimno(index);
+                const numReal = himnos.indexOf(himno) + 1; // número real en la lista completa
+                li.className = himnoSeleccionado && himno.slug === himnoSeleccionado.slug ? 'seleccionado' : '';
+                li.onclick = () => seleccionarHimno(himnosFiltrados.indexOf(himno));
                 li.innerHTML = `
-                    <a href="javascript:void(0);">${himno.numero}. ${himno.titulo}</a>
+                    <a href="javascript:void(0);">${numReal}. ${himno.titulo}</a>
                     <div class="himno-autor">${himno.autores || himno.fuente || ''}</div>
                 `;
                 lista.appendChild(li);
@@ -2608,39 +2621,39 @@ Porque Él me amó a mí`
             actualizarBotonesNavegacion();
         }
 
-    
         // Función para seleccionar un himno
-function seleccionarHimno(index) {
-    const himno = himnosFiltrados[index];
-    himnoSeleccionado = himno;
-    
-    const visor = document.getElementById('visor-himno');
-    
-    // Procesar la letra: líneas con texto = <p>, líneas vacías = separador
-    const lineas = himno.letra.split('\n');
-    let letraHtml = '';
-    lineas.forEach(linea => {
-        if (linea.trim() === '') {
-            letraHtml += '<div class="separador-estrofa"></div>';
-        } else {
-            letraHtml += `<p>${linea}</p>`;
+        function seleccionarHimno(index) {
+            const himno = himnosFiltrados[index];
+            himnoSeleccionado = himno;
+            
+            const visor = document.getElementById('visor-himno');
+            const numReal = himnos.indexOf(himno) + 1;
+            
+            // Procesar la letra: líneas con texto = <p>, líneas vacías = separador
+            const lineas = himno.letra.split('\n');
+            let letraHtml = '';
+            lineas.forEach(linea => {
+                if (linea.trim() === '') {
+                    letraHtml += '<div class="separador-estrofa"></div>';
+                } else {
+                    letraHtml += `<p>${linea}</p>`;
+                }
+            });
+            
+            visor.innerHTML = `
+                <div class="visor-header">
+                    <div class="visor-numero">HIMNO ${numReal}</div>
+                    <h2 class="visor-titulo">${himno.titulo}</h2>
+                    <div class="visor-autor">${himno.autores || himno.fuente || ''}</div>
+                </div>
+                <div class="visor-letra">
+                    ${letraHtml}
+                </div>
+            `;
+            
+            mostrarLista(); // actualiza la clase 'seleccionado' en la lista
+            history.pushState(null, '', `?himno=${himno.slug}`);
         }
-    });
-    
-    visor.innerHTML = `
-        <div class="visor-header">
-            <div class="visor-numero">HIMNO ${himno.numero}</div>
-            <h2 class="visor-titulo">${himno.titulo}</h2>
-            <div class="visor-autor">${himno.autores || himno.fuente || ''}</div>
-        </div>
-        <div class="visor-letra">
-            ${letraHtml}
-        </div>
-    `;
-    
-    mostrarLista(); // actualiza la clase 'seleccionado' en la lista
-    history.pushState(null, '', `?himno=${himno.numero}`);
-}
 
         // Función de búsqueda
         function buscarHimnos() {
@@ -2651,13 +2664,11 @@ function seleccionarHimno(index) {
             } else {
                 himnosFiltrados = himnos.filter(himno => 
                     himno.titulo.toLowerCase().includes(texto) ||
-                    himno.numero.includes(texto) ||
                     (himno.autores && himno.autores.toLowerCase().includes(texto)) ||
                     (himno.fuente && himno.fuente.toLowerCase().includes(texto))
                 );
             }
             
-            // No es necesario reordenar porque ya estaban ordenados
             mostrarLista();
             
             if (himnoSeleccionado && !himnosFiltrados.includes(himnoSeleccionado)) {
@@ -2670,7 +2681,7 @@ function seleccionarHimno(index) {
         function navegarHimno(direccion) {
             if (!himnoSeleccionado) return;
             
-            const indexActual = himnosFiltrados.findIndex(h => h.numero === himnoSeleccionado.numero);
+            const indexActual = himnosFiltrados.findIndex(h => h.slug === himnoSeleccionado.slug);
             
             if (direccion === 'anterior' && indexActual > 0) {
                 seleccionarHimno(indexActual - 1);
@@ -2689,7 +2700,7 @@ function seleccionarHimno(index) {
                 return;
             }
             
-            const indexActual = himnosFiltrados.findIndex(h => h.numero === himnoSeleccionado.numero);
+            const indexActual = himnosFiltrados.findIndex(h => h.slug === himnoSeleccionado.slug);
             btnAnterior.disabled = indexActual <= 0;
             btnSiguiente.disabled = indexActual >= himnosFiltrados.length - 1;
         }
@@ -2697,16 +2708,24 @@ function seleccionarHimno(index) {
         // Cargar himno desde URL si existe
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const himnoNumero = urlParams.get('himno');
+            const slug = urlParams.get('himno');
             
-            if (himnoNumero) {
-                const index = himnosFiltrados.findIndex(h => h.numero === himnoNumero);
-                if (index >= 0) {
-                    seleccionarHimno(index);
+            if (slug && mapaSlugs.hasOwnProperty(slug)) {
+                const indexReal = mapaSlugs[slug];
+                // Buscar el índice en filtrados (si está filtrado, puede no aparecer)
+                const indexFiltrado = himnosFiltrados.findIndex(h => h.slug === slug);
+                if (indexFiltrado >= 0) {
+                    seleccionarHimno(indexFiltrado);
+                } else {
+                    // Si no está en filtrados, mostramos todos y seleccionamos
+                    himnosFiltrados = [...himnos];
+                    mostrarLista();
+                    const nuevoIndex = himnosFiltrados.findIndex(h => h.slug === slug);
+                    if (nuevoIndex >= 0) seleccionarHimno(nuevoIndex);
                 }
+            } else {
+                mostrarLista();
             }
-            
-            mostrarLista();
         };
 
         // Búsqueda con tecla Enter
