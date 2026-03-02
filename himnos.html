@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Himnos | Cánticos Espirituales</title>
     <style>
-        /* Mismos estilos de antes... */
+        /* ===== ESTILOS GENERALES ===== */
         body {
             font-family: 'Georgia', 'Times New Roman', serif;
             line-height: 1.6;
@@ -55,7 +55,7 @@
             color: #1e3c5c;
         }
         
-        /* ===== NUEVO: BUSCADOR Y FILTROS ===== */
+        /* ===== BUSCADOR ===== */
         .buscador {
             margin: 20px 0;
             display: flex;
@@ -187,7 +187,7 @@
             font-style: italic;
         }
         
-        /* ===== BOTONES DE NAVEGACIÓN RÁPIDA ===== */
+        /* ===== BOTONES DE NAVEGACIÓN ===== */
         .nav-rapida {
             display: flex;
             justify-content: space-between;
@@ -239,27 +239,23 @@
         
         <!-- BUSCADOR -->
         <div class="buscador">
-            <input type="text" id="buscarInput" placeholder="Buscar por título, número o autor..." autocomplete="off">
+            <input type="text" id="buscarInput" placeholder="Buscar por título, número o fuente..." autocomplete="off">
             <button class="btn-buscar" onclick="buscarHimnos()">Buscar</button>
         </div>
         
         <!-- CONTADOR -->
-        <div class="contador" id="contador">Mostrando X de X himnos</div>
+        <div class="contador" id="contador">Mostrando 0 de 0 himnos</div>
         
-        <!-- LISTA Y VISOR EN DOS COLUMNAS (para pantallas grandes) -->
+        <!-- LISTA Y VISOR -->
         <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">
-            <!-- LISTA DE HIMNOS -->
+            <!-- LISTA -->
             <div>
-                <ul class="himno-lista" id="lista-himnos">
-                    <!-- Los himnos se cargarán aquí -->
-                </ul>
+                <ul class="himno-lista" id="lista-himnos"></ul>
             </div>
             
-            <!-- VISOR DEL HIMNO SELECCIONADO -->
+            <!-- VISOR -->
             <div class="visor-himno" id="visor-himno">
-                <div class="no-seleccionado">
-                    👆 Selecciona un himno de la lista
-                </div>
+                <div class="no-seleccionado">👆 Selecciona un himno de la lista</div>
             </div>
         </div>
         
@@ -275,14 +271,15 @@
     </div>
 
     <script>
-        // ===== BASE DE DATOS DE HIMNOS (VERSIÓN COMPLETA) =====
-        // Aquí es donde iremos agregando TODOS tus himnos
+        // ===== BASE DE DATOS DE HIMNOS (PRIMEROS 50) =====
         const himnos = [
-          { 
-    numero: "59",
-    titulo: "A Cristo Coronad",
-    fuente: "HG",
-    letra: `A Cristo coronad, divino Salvador;
+            { 
+                numero: "1",
+                titulo: "A Cristo Coronad",
+                fuente: "HG",
+                numeroOriginal: "59",
+                autores: "HG 59",
+                letra: `A Cristo coronad, divino Salvador;
 Sentado en alta majestad es digno de loor;
 Al Rey de gloria y paz loores tributad,
 Y bendecid al Inmortal por toda eternidad.
@@ -296,12 +293,14 @@ A Cristo coronad, Señor de vida y luz;
 Con alabanzas proclamad los triunfos de la cruz;
 A Él solo adorad, Señor de salvación;
 Loor eterno tributad de todo corazón.`
-},
-{ 
-    numero: "22",
-    titulo: "A Dios Demos Gloria",
-    fuente: "HB",
-    letra: `A Dios demos gloria, pues grande es él;
+            },
+            { 
+                numero: "2",
+                titulo: "A Dios Demos Gloria",
+                fuente: "HB",
+                numeroOriginal: "22",
+                autores: "HB 22",
+                letra: `A Dios demos gloria, pues grande es él;
 Su amor es inmenso y a su Hijo nos dio:
 Quien fue a la cruz do sufrió muerte cruel,
 Y así de los cielos las puertas abrió
@@ -321,12 +320,14 @@ Dios es el Maestro, potente Hacedor,
 Y grande es el gozo que Cristo nos da;
 Mas nuestro asombro será aún mayor
 Al ver a Jesús que en su gloria vendrá.`
-},
-{ 
-    numero: "4",
-    titulo: "A Dios el Padre Celestial",
-    fuente: "HB",
-    letra: `A Dios el Padre celestial,
+            },
+            { 
+                numero: "3",
+                titulo: "A Dios el Padre Celestial",
+                fuente: "HB",
+                numeroOriginal: "4",
+                autores: "HB 4",
+                letra: `A Dios el Padre celestial,
 Al Hijo nuestro Redentor,
 Y al eternal Consolador,
 Unidos todos alabad.
@@ -345,12 +346,14 @@ Eterna es Tu bondad, Señor;
 Verdad eterna es Tu voz.
 Tu adoración se escuchará
 Por toda la eternidad.`
-},
-{ 
-    numero: "48",
-    titulo: "A Dios Sea la Gloria",
-    fuente: "HAC",
-    letra: `A Dios sea la gloria, a Dios sea la gloria;
+            },
+            { 
+                numero: "4",
+                titulo: "A Dios Sea la Gloria",
+                fuente: "HAC",
+                numeroOriginal: "48",
+                autores: "HAC 48",
+                letra: `A Dios sea la gloria, a Dios sea la gloria;
 A Dios sea la gloria por lo que hizo por mí;
 Con su sangre me ha limpiado, su poder me ha salvado,
 A Dios sea la gloria por lo que hizo por mí.
@@ -359,12 +362,14 @@ Quiero vivir, Señor, rendido siempre sólo a ti;
 Pongo a tus pies lo que soy, porque diste todo, Señor, por mi.
 Con su sangre me ha limpiado, su poder me ha salvado,
 A Dios sea la gloria por lo que hizo por mí.`
-},
-{ 
-    numero: "196",
-    titulo: "A Jesucristo Ven Sin Tardar",
-    fuente: "HB",
-    letra: `A Jesucristo ven sin tardar,
+            },
+            { 
+                numero: "5",
+                titulo: "A Jesucristo Ven Sin Tardar",
+                fuente: "HB",
+                numeroOriginal: "196",
+                autores: "HB 196",
+                letra: `A Jesucristo ven sin tardar,
 Que entre nosotros hoy él está,
 Y te convida con dulce afán,
 Tierno diciendo: "Ven"
@@ -384,21 +389,1003 @@ Su voz escucha sin demorar,
 Y grato acepta lo que hoy te da;
 Tal vez mañana no habrá lugar,
 No te detengas: "Ven."`
-}
+            },
+            { 
+                numero: "6",
+                titulo: "¿A QUIÉN IRÉ?",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `¿A quién iré en necesidad?
+¿A quién iré en busca de paz?
+¿Y quién podrá mi vida saciar de verdad?
+¿Quién más tendrá de mi compasión?
+¿Y entenderá mi corazón?
+¿Quién cambiará mi eternidad?
+Sino Tú, Jesús
+
+Cristo ¿A dónde más podría ir?
+Cristo ¿Qué otro lugar puede existir?
+Sólo Tú tienes palabras de amor
+Camino al Padre y verdad eres Tú
+Cristo ¿A dónde más podría ir?`
+            },
+            { 
+                numero: "7",
+                titulo: "ABRE MIS OJOS OH CRISTO",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `//Abre mis ojos Oh Cristo
+Abre mis ojos Señor
+Yo quiero verte
+Yo quiero verte //
+
+CORO:
+//Verte enaltecido oh Dios
+Radiante en toda tu gloria
+Derrama tu amor y poder
+Sobre tu pueblo Padre Santo//
+
+/// Santo, Santo, Santo///
+
+Yo quiero Verte`
+            },
+            { 
+                numero: "8",
+                titulo: "ADORAD AL CORDERO SANTO",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Adorad al Cordero Santo
+Adorad al supremo Rey
+Adorad al Cordero Santo
+Adorad a Jesús
+
+Y vuestras manos alzad
+Y con canto adorad
+Y vuestras manos alzad
+Ante su trono con gozo
+Hacia el cielo las manos alzad
+Todo pueblo sabrá
+Que unidos adoramos al Rey`
+            },
+            { 
+                numero: "9",
+                titulo: "AGUA VIVA",
+                fuente: "HG",
+                numeroOriginal: "75",
+                autores: "HG 75",
+                letra: `¿Muy sediento y vacío?
+Ven y bebe agua viva.
+¿Quebrantado y cargado?
+Paz te ofrece el agua viva.
+Cristo llama al sediento
+En la cruz de agua viva.
+Nueva vida Cristo otorga,
+Como río de agua viva.
+
+Coro:
+Es un río de amor,
+De gracia y perdón,
+Trae gozo al pueblo del Señor.
+Él es fiel y Su amor quitará el temor.
+¡Canta al Dios de agua viva!
+
+Él nos salva y no guarda;
+El Consolador nos sana.
+Nos conduce a la orilla
+De este río de agua viva.
+
+¿Muy sediento y vacío?
+Ven y bebe el agua viva.
+Soy amado, perdonado;
+Cristo es el agua viva.`
+            },
+            { 
+                numero: "10",
+                titulo: "AL CRISTO REGRESAR",
+                fuente: "SGM",
+                numeroOriginal: "",
+                autores: "SGM",
+                letra: `Al Cristo regresar, la espera acabará
+Postrados a sus pies, en Él nos saciará
+Jesús gobernará y todo nuevo hará
+Las lágrimas en alabanzas cambiará
+Oh, cuánto ansiamos ver que vuelva
+
+CORO
+Jesucristo
+Nos deleitaremos en el Rey por siempre
+Jesucristo
+Nuestra esperanza es verle regresar
+
+Al Cristo regresar, no habrá más maldición
+Su gracia triunfará sobre la transgresión
+Pues Él restaurará lo que el pecado hirió
+Su luz dará gran gozo a nuestro corazón
+Oh, cuánto ansiamos ver que vuelva
+
+Al Cristo regresar, la prueba cesará
+Y nuestros galardones Él recibirá
+La muerte morirá, su reino acabará
+Revelará Su gloria y gozo eternal
+Oh, cuánto ansiamos ver que vuelva`
+            },
+            { 
+                numero: "11",
+                titulo: "AL CRISTO VIVO SIRVO",
+                fuente: "HB",
+                numeroOriginal: "518",
+                autores: "HB 518",
+                letra: `Al Cristo vivo sirvo y él en el mundo está;
+Aunque otros lo negaren yo sé que él vive ya.
+Su mano tierna veo, su voz consuelo da,
+Y cuando yo le llamo, muy cerca está
+
+CORO
+El vive, él vive, hoy vive el Salvador;
+Conmigo está y me guardará mi amante Redentor.
+El vive, él vive, imparte salvación.
+Sé que él viviendo está porque vive en mi corazón
+
+En todo el mundo entero contemplo yo su amor,
+Y al sentirme triste consuélame el Señor:
+Seguro estoy que Cristo mi vida guiando está,
+Y que otra vez al mundo regresará.
+
+Regocijaos, cristianos, hoy himnos entonad;
+Eternas aleluyas a Cristo el Rey cantad.
+La única esperanza es del mundo pecador,
+No hay otro tan amante como el Señor.`
+            },
+            { 
+                numero: "12",
+                titulo: "AL ESTAR ANTE TI",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Al estar ante Ti
+Adorando frente al mar de cristal
+Entre la multitud
+En asombro allí me habré de postrar
+Y mi canto uniré
+A millones proclamándote Rey
+Y mi voz oirás
+Entre las multitudes cantar
+
+Digno es el Cordero de Dios
+El que fue inmolado en la cruz
+Digno de la honra y el poder
+La sabiduría Suya es
+Y al que está en el trono sea el honor
+Santo, Santo, Santo es el Señor
+Reina por los siglos con poder
+Todo lo que existe es por Él`
+            },
+            { 
+                numero: "13",
+                titulo: "AL ESTAR AQUÍ",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Al estar en la presencia de tu divinidad
+Y al contemplar la hermosura de tu santidad
+Mi espíritu se alegra en tu majestad
+Te adoro a Ti, te adoro a Ti
+
+Cuando veo la grandeza de tu dulce amor
+Y compruebo la pureza de tu corazón
+Mi espíritu se alegra en tu majestad
+Te adoro a Ti, te adoro a Ti
+
+Y al estar aquí delante de Ti, te adoraré
+Postrado ante Ti, mi corazón te adora, oh Dios
+Y siempre quiero estar para adorar
+Y contemplar tu santidad
+Te adoro a Ti, Señor
+Te adoro a Ti`
+            },
+            { 
+                numero: "14",
+                titulo: "¡AL MUNDO PAZ NACIÓ JESÚS!",
+                fuente: "HB",
+                numeroOriginal: "76",
+                autores: "HB 76",
+                letra: `¡Al mundo paz, nació Jesús!
+Nació ya nuestro Rey;
+El corazón ya tiene luz,
+Y paz su santa grey,
+y paz su santa grey,
+Y paz, y paz su santa grey.
+
+¡Al mundo paz, el Salvador
+en tierra reinará!
+Ya es feliz el pecador,
+Jesús perdón le da,
+Jesús perdón le da,
+Jesús, Jesús perdón le da.
+
+Al mundo él gobernará
+con gracia y con poder;
+A las naciones mostrará
+Su amor y su poder,
+su amor y su poder,
+Su amor, su amor y su poder.`
+            },
+            { 
+                numero: "15",
+                titulo: "AL QUE ME CIÑE DE PODER",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `// Al que me ciñe de poder
+Aquel que mi victoria es
+Solo a Él alabaré, solo a Él exaltaré //
+
+// De ti será mi alabanza
+En la congregación
+cantaré y alabaré Tu nombre, Señor //`
+            },
+            { 
+                numero: "16",
+                titulo: "AL REY ADORAD",
+                fuente: "HG/HAC",
+                numeroOriginal: "56; 23",
+                autores: "HG 56; HAC 23",
+                letra: `Al Rey adorad, grandioso Señor,
+Y con gratitud cantad de Su amor.
+Anciano de días, el gran Defensor,
+De gloria vestido, le damos loor.
+
+Decid de Su amor, Su gracia cantad;
+Vestido de luz y de majestad.
+Su carro de fuego las nubes mirad;
+Son negras Sus huelas en la tempestad.
+
+¿Quién puede Tu providencia contar?
+Pues Tu aire me das para respirar.
+En valles y en montes alumbra Tu luz,
+Y con gran dulzura me cuida Jesús.
+
+Muy frágiles son los hombres aquí,
+Más por tu bondad confiamos en Ti.
+Tu misericordia ¡Cuán firme! ¡Cuán fiel!
+Creador, Salvador y Amigo es Él.`
+            },
+            { 
+                numero: "17",
+                titulo: "AL ÚNICO QUE ES DIGNO",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Al único que es digno de recibir
+Honra y gloria, fuerza y poder.
+Al Dios Padre celestial, invisible pero real,
+A El hoy proclamamos Señor.
+
+Te coronamos Señor y Rey Jesús.
+Te coronamos Señor y Rey Jesús.
+Adoramos Tu nombre, nos rendimos a Tus pies,
+consagramos todo nuestro ser a Ti`
+            },
+            { 
+                numero: "18",
+                titulo: "ALABA AL PADRE",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Dios Soberano sin pecar
+Te adora toda tu creación
+Delante de tu trono caen
+A ti toda la adoración
+
+En sufrimiento y tempestad
+Bajo tus alas estaré
+Tus enemigos huirán
+Tu nombre mi victoria es
+
+Coro:
+Alaba al Padre y al Hijo
+Y al Santo Espíritu
+Vestido en gracia y en poder
+Tu nombre sobre todo es
+
+En el valle de aflicción
+Él vino y me completó
+Su voz a casa me volvió
+Su paz como aguas fluye hoy
+
+//Tuyo es el reino Tuyo el poder
+Tuya es la gloria Por siempre//`
+            },
+            { 
+                numero: "19",
+                titulo: "ALABAD A JEHOVÁ",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `¡Alabad a Jehová!
+Habitantes de la tierra
+Alabad al Señor
+Los que temen a su nombre
+Alabadle porque hizo
+Maravillas en el mar
+Alabadle porque quiso
+Engrandecer a su pueblo
+¡Alabadle, alabadle, alabadle!
+
+Alabadle porque quiso
+Revelarnos a su Hijo
+Alabadle porque en Cristo
+Nos dio vida eterna
+¡Alabadle, alabadle, alabadle!`
+            },
+            { 
+                numero: "20",
+                titulo: "ALABAD A JEHOVÁ (Salmo 117)",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Alabad a Jehová, naciones todas, pueblos todos, alabadle
+Porque ha engrandecido sobre nosotros Su misericordia
+Y la verdad de Jehová es para siempre, aleluya, amén
+Y la verdad de Jehová es para siempre, aleluya, amén`
+            },
+            { 
+                numero: "21",
+                titulo: "ALABAD AL GRAN REY",
+                fuente: "HG",
+                numeroOriginal: "22",
+                autores: "HG 22",
+                letra: `Solemnes resuenen las voces de amor,
+Con gran regocijo tributen loor.
+Al Rey Soberano, el buen Salvador;
+Dignísimo es Él del más alto honor.
+
+Coro:
+Alabad, alabad, alabad al gran Rey.
+Adorad, adorad, adoradle su grey.
+Es nuestro escudo, baluarte y sostén;
+El omnipotente por siglos, Amén.
+
+Su amor infinito, ¿qué lengua dirá?
+Y, ¿quién Sus bondades jamás sondeará?
+Su misericordia no puede faltar
+Mil himnos alaben Su nombre sin par.
+
+Inmensa la obra de Crísto en la cruz,
+Enorme la culpa se ve por su luz.
+Al mundo Él vino, nos iluminó,
+Y por nuestras culpas Él Justo murió
+
+Velad, fieles todos, velad con fervor,
+Que viene muy pronto Jesus, el Señor.
+Con notas alegres vendrá a reinar;
+A Su eterna gloria nos ha de llevar.`
+            },
+            { 
+                numero: "22",
+                titulo: "ALABAD, SIERVOS DE JEHOVÁ",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `/Alabad. siervos de Jehová,
+Alabad el nombre de Jehová//
+
+Sea el nombre de Jehová bendito
+Desde ahora y para siempre.
+Desde que nace el sol hasta que se pone
+Sea alabado el Señor.`
+            },
+            { 
+                numero: "23",
+                titulo: "ALABANZAS AL REY",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Hoy vengo a ofrecerme postrado ante ti
+Mi corazón puede estar ahí
+El cielo se viste de gala
+Jamás se ha visto así
+Y en humilde pesebre ahí en Belén
+Ha nacido el rey
+
+Alabanzas al rey
+Alabanzas al rey
+Alabanzas al rey
+Al rey de Israel
+
+Pastores y magos vinieron a ti
+A rendir adoración
+Ángeles ahora cantan a Dios nueva canción
+Pues al mundo ha llegado el regalo de Dios
+Paz y salvación`
+            },
+            { 
+                numero: "24",
+                titulo: "ALABARÉ ALABARÉ",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `// Alabaré, alabaré, alabaré, alabaré, alabaré a mi Señor //
+
+Juan vio el número de los redimidos
+Y todos alababan al Señor
+Unos oraban, otros cantaban
+Y todos alababan al Señor`
+            },
+            { 
+                numero: "25",
+                titulo: "ALCANCE SALVACIÓN",
+                fuente: "HB",
+                numeroOriginal: "330",
+                autores: "HB 330",
+                letra: `De paz inundada mi senda ya esté,
+O cúbrala un mar de aflicción,
+Mi suerte cualquiera que sea, diré:
+Alcancé, alcancé salvación.
+
+CORO
+Alcancé salvación.
+Alcancé, alcancé salvación.
+Ya venga la prueba o me tiente Satán,
+No amenguan mi fe ni mi amor;
+Pues Cristo comprende mis luchas, mi afán
+Y su sangre vertió en mi favor.
+
+Feliz yo me siento al saber que Jesús,
+Me libra del yugo opresor;
+Quitó mi pecar, lo clavó en la cruz:
+Gloria demos al buen Salvador.
+
+Y cuando la fe sea una realidad
+Al irse la niebla veloz;
+Desciende Jesús con su gran majestad,
+¡Aleluya! Estoy bien con mi Dios.`
+            },
+            { 
+                numero: "26",
+                titulo: "ALCANZARÉ A MI FAMILIA PARA CRISTO",
+                fuente: "HAC",
+                numeroOriginal: "319",
+                autores: "HAC 319",
+                letra: `La Biblia cuenta muchas historias sobre el amor de Dios para el hogar.
+José y María, Abraham y Sara, hogares bendecidos por Dios.
+Nuestra familia él quiere redimir,
+Debemos predicarles con nuestro andar.
+
+CORO
+Alcanzaré a mi familia para Cristo,
+les contaré de su amor y su bondad.
+Les hablaré de lo que Dios hizo en mi vida.
+Alcanzaré con Jesús a los que amo.
+
+Nuestros hogares hoy necesitan de las promesas y el amor de Dios.
+De su Palabra, sus enseñanzas y de confianza en su protección.
+Nos toca a ti y a mí el compartir
+La salvación inmensa que Dios nos dio.`
+            },
+            { 
+                numero: "27",
+                titulo: "ALELUYA (Agnus dei)",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Aleluya, aleluya
+Reinas Tú, poderoso Dios
+Aleluya, aleluya
+Reinas Tú, poderoso Dios
+Aleluya
+
+Santo, Santo
+El Señor Dios poderoso
+Digno eres Tú, digno eres Tú
+Tú eres Santo, Santo
+El Señor Dios poderoso
+Digno eres Tú, digno eres Tú Amén`
+            },
+            { 
+                numero: "28",
+                titulo: "ALELUYA",
+                fuente: "HB",
+                numeroOriginal: "435",
+                autores: "HB 435",
+                letra: `Aleluya, aleluya, aleluya, aleluya,
+Aleluya, aleluya, aleluya, aleluya.
+
+Yo te amo, yo te amo, yo te amo, yo te amo,
+Yo te amo, yo te amo, yo te amo, yo te amo
+
+Te alabo, te alabo, te alabo, te alabo,
+Te alabo, te alabo, te alabo, te alabo,
+
+El es digno, él es digno, él es digno, él es digno,
+El es digno, él es digno, él es digno, él es digno.`
+            },
+            { 
+                numero: "29",
+                titulo: "ALLÍ NO HABRÁ TRIBULACIÓN",
+                fuente: "HB",
+                numeroOriginal: "503",
+                autores: "HB 503",
+                letra: `En la mansión do Cristo está,
+Allí no habrá tribulación;
+Ningún pesar, ningún dolor,
+Que me quebrante el corazón
+
+CORO
+Allí no habrá tribulación;
+Ningún pesar, ningún dolor,
+Y cuando esté morando allá,
+Diré que no hay tribulación.
+
+Será muy triste estarme aquí,
+Muy lejos, sí, del Salvador,
+Pues moran ya con él alli,
+Los redimidos por su amor.
+
+Perfecto amor encontraré,
+En la mansión del Salvador;
+Perfecta paz allí tendré,
+Mejor que la que gozo hoy.
+
+Entonces, sí, yo gozaré
+De toda la felicidad,
+Y ya con Cristo reinaré
+Por toda la eternidad`
+            },
+            { 
+                numero: "30",
+                titulo: "ANGELES CANTANDO ESTÁN",
+                fuente: "HB",
+                numeroOriginal: "67",
+                autores: "HB 67",
+                letra: `Angeles cantando están tan dulcísima canción;
+Las montañas su eco dan como fiel contestación.
+
+CORO
+Gloria a Dios en lo alto. Gloria a Dios en lo alto.
+
+Los pastores sin cesar sus loores dan a Dios;
+Cuan glorioso es el cantar de su melodiosa voz.
+
+¡Oh! venid pronto a Belén para contemplar con fe
+A Jesús, autor del bien, al recién nacido Rey.`
+            },
+            { 
+                numero: "31",
+                titulo: "ANHELO TRABAJAR POR EL SEÑOR",
+                fuente: "HB",
+                numeroOriginal: "362",
+                autores: "HB 362",
+                letra: `Anhelo trabajar por el Señor,
+Confiando en su palabra y en su amor,
+Quiero yo cantar y orar,
+Y ocupado siempre estar
+En la viña del Señor.
+
+CORO
+Trabajar y orar, en la viña, en la viña del Señor;
+Mi anhelo es orar, y ocupado siempre estar,
+En la viña del Señor.
+
+Anhelo cada día trabajar,
+Y esclavos del pecado libertar,
+Conducirlos a Jesüs,
+Nuestro guía, nuestra luz,
+En la viña del Señor.
+
+Anhelo ser obrero de valor,
+Confiando en el poder del Salvador;
+El que quiera trabajar
+Hallará también lugar
+En la viña del Señor.`
+            },
+            { 
+                numero: "32",
+                titulo: "ANTE EL TRONO CELESTIAL",
+                fuente: "SGM/HG",
+                numeroOriginal: "92",
+                autores: "SGM; HG 92",
+                letra: `Ante el trono celestial
+Él intercede hoy por mí
+Gran Sacerdote es Jesús
+Quien por siempre vivirá
+Y en Sus manos por Su amor
+Mi nombre ya grabado está
+Y mientras en Su trono esté
+Nadie de Él me apartará
+Nadie de Él me apartará
+
+Cuando he caído en tentación
+Y al sentir condenación
+Al ver al cielo encontraré
+El inocente quien murió
+Y por su muerte el Salvador
+Ya mi pecado perdonó
+Pues Dios, el Justo, aceptó
+Su sacrificio hecho por mí
+Su sacrificio hecho por mí
+
+He aquí el Cordero Redentor
+Quién al morir resucitó
+El inmutable gran Yo Soy
+El Rey de gloria y majestad
+Unido a Él no moriré
+Pues con Su sangre me compró
+Mi vida escondida está
+En Cristo Dios, mi Salvador
+En Cristo Dios, mi Salvador`
+            },
+            { 
+                numero: "33",
+                titulo: "AÑOS MI ALMA EN VANIDAD VIVIÓ",
+                fuente: "HB",
+                numeroOriginal: "176",
+                autores: "HB 176",
+                letra: `Años mi alma en vanidad vivió,
+Ignorando a quien por mí sufrió,
+Oh que en el Calvario sucumbió,
+El Salvador.
+
+CORO
+Mi alma allí divina gracia halló;
+Dios allí perdón y paz me dio;
+Del pecado allí me libertó el Salvador.
+
+Por la Biblia miro que pequé,
+Y su ley divina quebranté;
+Mi alma entonces contempló con fe
+Al Salvador.
+
+En la cruz su amor Dios demostró
+Y de gracia al hombre revistió
+Cuando por nosotros se entregó
+El Salvador.
+
+Toda mi alma a Cristo ya entregué.
+Hoy le quiero y sirvo como a Rey,
+Por los siglos siempre cantaré
+Al Salvador.`
+            },
+            { 
+                numero: "34",
+                titulo: "AQUEL QUIEN LA BUENA OBRA EMPEZÓ",
+                fuente: "HAC",
+                numeroOriginal: "289",
+                autores: "HAC 289",
+                letra: `//Aquel quien la buena obra empezó.//
+
+//Será fiel en completarla,//
+El que la comenzó será fiel en completarla en ti.
+
+Si la lucha que enfrentas a tu esperanza tornó ya sin paz,
+O de tanto esperar ya perdiendo tu canción estás.
+Puedes creer que su mano está en ti;
+Seguro estás, nunca te ha de abandonar;
+Eres su gozo y su gran tesoro aquí.`
+            },
+            { 
+                numero: "35",
+                titulo: "AQUÍ ESTOY",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `//Aquí estoy con manos alzadas vengo
+Pues Tú todo lo diste por mí
+Aquí estoy mi alma a Ti entrego
+Tuyo soy Señor//
+
+Tú eres el principio
+Tuya la eternidad
+Llamaste al mundo a existencia
+Me acerco a Ti
+
+Moriste por mis fracasos
+Llevaste mi culpa en la cruz
+Cargaste en tus hombros mi carga
+Me acerco a Ti
+
+¿Qué puedo hacer
+Qué puedo decir?
+Te ofrezco mi corazón
+Completamente a Ti
+
+En Tu salvación camino
+Tú Espíritu vive en mi
+Declararé tus promesas
+Me acerco a Ti`
+            },
+            { 
+                numero: "36",
+                titulo: "AQUÍ ESTOY",
+                fuente: "HAC",
+                numeroOriginal: "44",
+                autores: "HAC 44",
+                letra: `Aquí estoy, ante tu altar, en tu presencia es donde quiero estar.
+No espero más, tan sólo estar en las delicias de tu diestra.
+
+//Quiero estar en tu presencia, habitar en tus moradas,
+Contemplando la hermosura de tu gloria.
+Quiero ser un sacerdote que ministre día y noche.
+Quiero ser un sacrificio agradable a ti, ante tu altar.//`
+            },
+            { 
+                numero: "37",
+                titulo: "ASOMBROSO DIOS",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Mi Dios, majestuoso Dios
+Del cielo, gobierna él
+Con Gloria, Poder y Amor
+Mi Dios, majestuoso es`
+            },
+            { 
+                numero: "38",
+                titulo: "AYÚDAME A MIRAR CON TUS OJOS",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Ayúdame a mirar con tus ojos
+Yo quiero sentir con tu corazón
+No quiero vivir más siendo insensible
+Tanta necesidad, oh Jesucristo
+
+Te pido la paz, para mi ciudad
+Te pido perdón, por mi ciudad
+Ahora me humillo y busco tu rostro
+¿A quién iré Señor? Sino a Ti`
+            },
+            { 
+                numero: "39",
+                titulo: "BELLAS PALABRAS DE VIDA",
+                fuente: "HB",
+                numeroOriginal: "143",
+                autores: "HB 143",
+                letra: `¡Oh, cantádmelas otra vez!
+Bellas palabras de vida;
+Hallo en ellas mi gozo y luz,
+Bellas palabras de vida.
+Sí, de luz y vida son sostén y guía;
+
+CORO
+¡Qué bellas son, qué bellas son!
+Bellas palabras de vida,
+¡Qué bellas son, qué bellas son!
+Bellas palabras de vida.
+
+Jesucristo a todos da
+Bellas palabras de vida;
+El llamándote hoy esta,
+Bellas palabras de vida.
+Bondadoso te salva,
+y al cielo te llama;
+
+Grato el cántico sonará,
+Bellas palabras de vida;
+Tus pecados perdonará,
+Bellas palabras de vida.
+Sí, de luz y vida son sostén y guía;`
+            },
+            { 
+                numero: "40",
+                titulo: "BENDECIRÉ AL SEÑOR",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `//Bendeciré al Señor
+Dios de mi salvacion
+el ha sido tan bueno para mi.
+Bendecire al Señor
+mi rey mi salvador
+he puesto mi esperanza en El.//
+
+En el dia de angustia en el esperare
+en el dia de felicidad tambien le buscare
+en todo tiempo en todo lugar
+bendecire a mi señor.`
+            },
+            { 
+                numero: "41",
+                titulo: "BENDICE ALMA MÍA (Salmo 103)",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Bendice alma mía a Jehová //y bendiga todo mi ser//
+Su santo nombre
+
+//Bendice alma mía a Jehová
+y no olvides ninguno de sus beneficios//`
+            },
+            { 
+                numero: "42",
+                titulo: "BENDITO DIOS",
+                fuente: "HAC",
+                numeroOriginal: "42",
+                autores: "HAC 42",
+                letra: `Bendito Dios, bendito eres Señor.
+Bendito Dios, bendito mi Salvador.
+Eres mi roca, mi fortaleza, eres mi protector.
+Eres eterno, rey poderoso, de tu pueblo Señor.
+
+Eres mi roca, mi fortaleza, eres mi protector.
+Eres eterno, rey poderoso, de tu pueblo Señor, Jesús.`
+            },
+            { 
+                numero: "43",
+                titulo: "BENDITO SEA JEHOVÁ",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Bendito sea Jehová
+Quién adiestra mis manos a pelear
+Bendito sea Jehová
+Quién adiestra mis manos a pelear
+
+Mi Roca, mi Escudo
+Mi Castillo y mi Libertador
+Mi Gloria, mi Fuerza
+En Él confiaré`
+            },
+            { 
+                numero: "44",
+                titulo: "BUENO ES ALABARTE JEHOVÁ",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `//Bueno es alabarte, Jehová, y cantar salmos a tu nombre//
+
+//Anunciar por la mañana tu misericordia y tu fidelidad de noche//
+
+¿Quién es el que vive? Cristo es el que vive
+¿Quién es el que salva? Cristo es el que salva
+
+//Anunciar por la mañana tu misericordia y tu fidelidad de noche//`
+            },
+            { 
+                numero: "45",
+                titulo: "BUENO ES ALABARTE SEÑOR",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Bueno es alabar, oh, Señor
+Tu nombre
+Darte gloria, honra y honor
+Por siempre
+
+Bueno es alabarte, Jesús
+Y gozarme en tu poder
+Porque grande eres Tú
+Grande son tus obras
+Porque grande eres Tú
+Grande es tu amor
+Grande es tu gloria`
+            },
+            { 
+                numero: "46",
+                titulo: "BUENO ES DIOS",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Bueno es Dios siempre fiel
+Puso un canto nuevo en mi corazón
+Bueno es Dios siempre fiel
+En la oscuridad brillará su amor
+Bueno es Dios, bueno es Dios
+Siempre fiel
+
+Si tú vas por el valle
+Y hay sombras alrededor
+Di adios al temor
+Pues seguro en él estas
+Prometió nunca dejarte
+Ni abandonarte y el no mentirá
+
+Y aún sin merecerle
+Su sangre derramo por mí
+Me llenó de su presencia
+Y ahora puedo compartir
+Que su amor nunca termina
+Y su favor siempre me dará
+
+No puedo entender
+Tus planes para mí
+Mi dueño eres tú
+Y por la fe veo claramente que`
+            },
+            { 
+                numero: "47",
+                titulo: "BUSCAD PRIMERO",
+                fuente: "HB",
+                numeroOriginal: "373",
+                autores: "HB 373",
+                letra: `Buscad primero el reino de Dios Y su perfecta justicia,
+Y lo demás añadido será. Aleluya, aleluya.
+
+No sólo de pan el hombre vivirá, Sino de toda palabra
+Que sale de la boca de Dios. Aleluya, aleluya.
+
+Pedid, pedid y se os dará;
+Buscad y hallaréis
+Llamad, llamad y la puerta se abrirá Aleluya, aleluya.`
+            },
+            { 
+                numero: "48",
+                titulo: "CADA MAÑANA AL DESPERTAR",
+                fuente: "",
+                numeroOriginal: "",
+                autores: "",
+                letra: `Cada mañana al despertar
+Y por la noche al descansar
+Agradezco tus bondades a mi vida
+Por todo lo que me permites disfrutar
+
+// Ale-lu-u-ya, alelu-u-ya, alelu-u-ya
+Agradecido estoy por tu bondad //`
+            },
+            { 
+                numero: "49",
+                titulo: "CANTA",
+                fuente: "SGM",
+                numeroOriginal: "",
+                autores: "SGM",
+                letra: `Si tuviste aliento al amanecer
+Y vida en tu interior
+Si Dios te sostiene con Su poder
+Entonces ven, y canta hoy
+
+Si ha llenado el Padre tu corazón
+De gracia y amor
+Ven y pon tus cargas ante el Señor
+Con nuevas fuerzas canta hoy
+
+CORO
+¡Día y noche lo que respira ha de cantar!
+¡Que lo creado al Rey de Reyes alabe al cantar!
+
+Si el pecado Cristo llevó al morir
+Y libertad te dio
+Si a la muerte el Hijo le puso fin
+Y en gloria está, ven canta hoy
+
+Cuando vuelva Cristo en el día final
+En gloria y majestad
+Ante el Cordero todos caerán
+Los santos siempre cantarán ¡Sí, siempre vamos a cantar!`
+            },
+            { 
+                numero: "50",
+                titulo: "CANTA A DIOS CON ALEGRÍA",
+                fuente: "HB",
+                numeroOriginal: "290",
+                autores: "HB 290",
+                letra: `Canta a Dios con alegría el mensaje del Señor,
+De la verdadera vida que nos da con tanto amor.
+Cada historia de la Biblia nos relata su poder;
+Démosle nuestra alabanza, demos todo nuestro ser.
+
+Nuestro Dios, te agradecemos tu sin par revelación;
+Prometemos ser testigos a nuestra generación.
+Tu evangelio anunciaremos a la inmensa humanidad;
+Tu palabra llevaremos al hacer tu voluntad.
+
+Cristo nos dejó un mandato en su hora de triunfar,
+Y nos pide todavía ir al mundo y predicar.
+Que los hombres todos sepan de Jesús y su bondad,
+Que su amor sincero y puro quiere darles libertad`
+            }
+        ];
+
+        // Ordenar por número (por si acaso)
+        himnos.sort((a, b) => parseInt(a.numero) - parseInt(b.numero));
 
         // Variables de estado
         let himnosFiltrados = [...himnos];
         let himnoSeleccionado = null;
-        
-        // Ordenar por número
-        function ordenarPorNumero(lista) {
-            return lista.sort((a, b) => parseInt(a.numero) - parseInt(b.numero));
-        }
-        
-        himnos = ordenarPorNumero(himnos);
-        himnosFiltrados = ordenarPorNumero(himnosFiltrados);
 
-        // Función para mostrar la lista de himnos
+        // Función para mostrar la lista
         function mostrarLista() {
             const lista = document.getElementById('lista-himnos');
             const contador = document.getElementById('contador');
@@ -411,14 +1398,12 @@ No te detengas: "Ven."`
                 li.onclick = () => seleccionarHimno(index);
                 li.innerHTML = `
                     <a href="javascript:void(0);">${himno.numero}. ${himno.titulo}</a>
-                    <div class="himno-autor">${himno.autores}</div>
+                    <div class="himno-autor">${himno.autores || himno.fuente || ''}</div>
                 `;
                 lista.appendChild(li);
             });
             
-            contador.textContent = `Mostrando ${himosFiltrados.length} de ${himnos.length} himnos`;
-            
-            // Actualizar botones de navegación
+            contador.textContent = `Mostrando ${himnosFiltrados.length} de ${himnos.length} himnos`;
             actualizarBotonesNavegacion();
         }
 
@@ -427,27 +1412,23 @@ No te detengas: "Ven."`
             const himno = himnosFiltrados[index];
             himnoSeleccionado = himno;
             
-            // Actualizar visor
             const visor = document.getElementById('visor-himno');
             visor.innerHTML = `
                 <div class="visor-header">
                     <div class="visor-numero">HIMNO ${himno.numero}</div>
                     <h2 class="visor-titulo">${himno.titulo}</h2>
-                    <div class="visor-autor">${himno.autores}</div>
+                    <div class="visor-autor">${himno.autores || himno.fuente || ''}</div>
                 </div>
                 <div class="visor-letra">
                     ${himno.letra.split('\n').map(linea => `<p>${linea}</p>`).join('')}
                 </div>
             `;
             
-            // Actualizar clase en la lista
-            mostrarLista();
-            
-            // Actualizar URL sin recargar (para compartir)
+            mostrarLista(); // actualiza la clase 'seleccionado' en la lista
             history.pushState(null, '', `?himno=${himno.numero}`);
         }
 
-        // Función para buscar himnos
+        // Función de búsqueda
         function buscarHimnos() {
             const texto = document.getElementById('buscarInput').value.toLowerCase();
             
@@ -457,21 +1438,21 @@ No te detengas: "Ven."`
                 himnosFiltrados = himnos.filter(himno => 
                     himno.titulo.toLowerCase().includes(texto) ||
                     himno.numero.includes(texto) ||
-                    himno.autores.toLowerCase().includes(texto)
+                    (himno.autores && himno.autores.toLowerCase().includes(texto)) ||
+                    (himno.fuente && himno.fuente.toLowerCase().includes(texto))
                 );
             }
             
-            himnosFiltrados = ordenarPorNumero(himosFiltrados);
+            // No es necesario reordenar porque ya estaban ordenados
             mostrarLista();
             
-            // Limpiar selección si el himno seleccionado ya no está en la lista filtrada
-            if (himnoSeleccionado && !himosFiltrados.includes(himnoSeleccionado)) {
+            if (himnoSeleccionado && !himnosFiltrados.includes(himnoSeleccionado)) {
                 himnoSeleccionado = null;
                 document.getElementById('visor-himno').innerHTML = '<div class="no-seleccionado">👆 Selecciona un himno de la lista</div>';
             }
         }
 
-        // Función para navegar entre himnos
+        // Navegación
         function navegarHimno(direccion) {
             if (!himnoSeleccionado) return;
             
@@ -484,7 +1465,6 @@ No te detengas: "Ven."`
             }
         }
 
-        // Función para actualizar botones de navegación
         function actualizarBotonesNavegacion() {
             const btnAnterior = document.getElementById('btnAnterior');
             const btnSiguiente = document.getElementById('btnSiguiente');
@@ -496,12 +1476,11 @@ No te detengas: "Ven."`
             }
             
             const indexActual = himnosFiltrados.findIndex(h => h.numero === himnoSeleccionado.numero);
-            
             btnAnterior.disabled = indexActual <= 0;
             btnSiguiente.disabled = indexActual >= himnosFiltrados.length - 1;
         }
 
-        // Cargar himno desde URL si existe (?himno=34)
+        // Cargar himno desde URL si existe
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const himnoNumero = urlParams.get('himno');
@@ -514,9 +1493,9 @@ No te detengas: "Ven."`
             }
             
             mostrarLista();
-        }
+        };
 
-        // Buscar mientras se escribe (opcional)
+        // Búsqueda con tecla Enter
         document.getElementById('buscarInput').addEventListener('keyup', function(e) {
             if (e.key === 'Enter') {
                 buscarHimnos();
