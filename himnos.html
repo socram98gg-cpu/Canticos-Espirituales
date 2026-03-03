@@ -55,96 +55,112 @@
             color: #1e3c5c;
         }
         
-        /* ===== BUSCADOR ===== */
-      <!-- SELECTOR CON BUSCADOR INTEGRADO -->
-        <div class="selector-himno" id="selectorHimno">
-            <div class="selector-seleccion" onclick="toggleSelector()">
-                <span id="tituloSeleccionado">Selecciona un cántico</span>
-            </div>
-            <div class="selector-lista" id="selectorLista">
-                <!-- Campo de búsqueda dentro del dropdown -->
-                <div class="buscador-interno">
-                    <input type="text" id="buscarInterno" placeholder="Buscar por título, número o fuente..." autocomplete="off">
-                </div>
-                <ul class="lista-horizontal" id="listaHimnosDropdown"></ul>
-            </div>
-        </div>
-        
-        .selector-seleccion {
-            padding: 12px 15px;
-            background-color: #f9f7f4;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #1e3c5c;
-            border-bottom: 2px solid #d4af37;
-        }
-        
-        .selector-seleccion::after {
-            content: "▼";
-            font-size: 0.8em;
-            color: #d4af37;
-            transition: transform 0.3s;
-        }
-        
-        .selector-abierto .selector-seleccion::after {
-            transform: rotate(180deg);
-        }
-        
-        .selector-lista {
-            max-height: 0;
-            overflow-y: auto;
-            transition: max-height 0.3s ease-out;
-            background-color: white;
-            border-radius: 0 0 4px 4px;
-        }
-        
-        .selector-abierto .selector-lista {
-            max-height: 350px;
-            border-top: 1px solid #d4af37;
-        }
-        
-        .lista-horizontal {
-            list-style: none;
-            padding: 5px 0;
-            margin: 0;
-            font-size: 0.85em;
-        }
-        
-        .lista-horizontal li {
-            padding: 8px 15px;
-            cursor: pointer;
-            border-bottom: 1px solid #eee;
-            transition: background-color 0.2s;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .lista-horizontal li:hover {
-            background-color: #e8e2d8;
-            border-left: 3px solid #d4af37;
-        }
-        
-        .lista-horizontal li.seleccionado-lista {
-            background-color: #d4af37;
-            color: white;
-            font-weight: bold;
-        }
-        
-        .himno-autor-pequeno {
-            font-size: 0.75em;
-            color: #5a6d7c;
-            margin-left: 5px;
-            display: inline;
-        }
-        
-        .lista-horizontal li.seleccionado-lista .himno-autor-pequeno {
-            color: #1e3c5c;
-        }
+     /* ===== SELECTOR CON BUSCADOR INTEGRADO ===== */
+.selector-himno {
+    margin-bottom: 20px;
+    border: 2px solid #d4af37;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.selector-seleccion {
+    padding: 12px 15px;
+    background-color: #f9f7f4;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #1e3c5c;
+    border-bottom: 2px solid #d4af37;
+}
+
+.selector-seleccion::after {
+    content: "▼";
+    font-size: 0.8em;
+    color: #d4af37;
+    transition: transform 0.3s;
+}
+
+.selector-abierto .selector-seleccion::after {
+    transform: rotate(180deg);
+}
+
+.selector-lista {
+    max-height: 0;
+    overflow-y: auto;
+    transition: max-height 0.3s ease-out;
+    background-color: white;
+    border-radius: 0 0 4px 4px;
+}
+
+.selector-abierto .selector-lista {
+    max-height: 400px; /* Ajusta este valor si prefieres más o menos altura */
+    border-top: 1px solid #d4af37;
+}
+
+/* Buscador interno */
+.buscador-interno {
+    padding: 10px;
+    border-bottom: 1px solid #d4af37;
+    background-color: #f9f7f4;
+}
+
+.buscador-interno input {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.9em;
+    border: 1px solid #d4af37;
+    border-radius: 4px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.buscador-interno input:focus {
+    outline: 2px solid #d4af37;
+    outline-offset: 1px;
+}
+
+/* Lista de himnos */
+.lista-horizontal {
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    font-size: 0.85em;
+}
+
+.lista-horizontal li {
+    padding: 8px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lista-horizontal li:hover {
+    background-color: #e8e2d8;
+    border-left: 3px solid #d4af37;
+}
+
+.lista-horizontal li.seleccionado-lista {
+    background-color: #d4af37;
+    color: white;
+    font-weight: bold;
+}
+
+.himno-autor-pequeno {
+    font-size: 0.75em;
+    color: #5a6d7c;
+    margin-left: 5px;
+    display: inline;
+}
+
+.lista-horizontal li.seleccionado-lista .himno-autor-pequeno {
+    color: #1e3c5c;
+}
         
         /* ===== VISOR DE HIMNO ===== */
         .visor-himno {
@@ -235,15 +251,19 @@
         <!-- CONTADOR -->
         <div class="contador" id="contador">Mostrando 0 de 0 himnos</div>
         
-        <!-- SELECTOR DROPDOWN -->
-        <div class="selector-himno" id="selectorHimno">
-            <div class="selector-seleccion" onclick="toggleSelector()">
-                <span id="tituloSeleccionado">Selecciona un himno</span>
-            </div>
-            <div class="selector-lista" id="selectorLista">
-                <ul class="lista-horizontal" id="listaHimnosDropdown"></ul>
-            </div>
+       <!-- SELECTOR CON BUSCADOR INTEGRADO -->
+<div class="selector-himno" id="selectorHimno">
+    <div class="selector-seleccion" onclick="toggleSelector()">
+        <span id="tituloSeleccionado">Selecciona un cántico</span>
+    </div>
+    <div class="selector-lista" id="selectorLista">
+        <!-- Campo de búsqueda dentro del dropdown -->
+        <div class="buscador-interno">
+            <input type="text" id="buscarInterno" placeholder="Buscar por título, número o fuente..." autocomplete="off">
         </div>
+        <ul class="lista-horizontal" id="listaHimnosDropdown"></ul>
+    </div>
+</div>
 
         <!-- VISOR -->
         <div class="visor-himno" id="visor-himno">
@@ -9739,7 +9759,7 @@ Nos levanta cuando caemos
 Y con sus brazos nos sostendrá.`
     }
         ];
-       // ===== MAPA DE SLUGS =====
+     // ===== MAPA DE SLUGS (para búsqueda rápida) =====
         const mapaSlugs = {};
         himnos.forEach((himno, index) => {
             mapaSlugs[himno.slug] = index;
@@ -9815,7 +9835,6 @@ Y con sus brazos nos sostendrá.`
             
             const himno = himnos[indexReal];
             
-            // Si el himno no está en filtrados, resetear filtros
             if (!himnosFiltrados.includes(himno)) {
                 himnosFiltrados = [...himnos];
                 document.getElementById('buscarInterno').value = '';
@@ -9853,24 +9872,21 @@ Y con sus brazos nos sostendrá.`
             history.pushState(null, '', `?himno=${himno.slug}`);
         }
 
-        // ===== BÚSQUEDA INTERNA (número exacto o texto) =====
+        // ===== BÚSQUEDA INTERNA =====
         function buscarInterno() {
             const texto = document.getElementById('buscarInterno').value.trim();
             
             if (texto === '') {
                 himnosFiltrados = [...himnos];
             } else {
-                // Verificar si el texto es un número (entero positivo)
                 const esNumero = /^\d+$/.test(texto);
                 
                 if (esNumero) {
                     const numeroBuscado = parseInt(texto, 10);
-                    // Buscar himno cuyo número de orden (posición+1) coincida exactamente
                     himnosFiltrados = himnos.filter((himno, index) => {
                         return (index + 1) === numeroBuscado;
                     });
                 } else {
-                    // Búsqueda por texto (título, autor o fuente)
                     himnosFiltrados = himnos.filter(himno => 
                         himno.titulo.toLowerCase().includes(texto.toLowerCase()) ||
                         (himno.autores && himno.autores.toLowerCase().includes(texto.toLowerCase())) ||
@@ -9881,7 +9897,6 @@ Y con sus brazos nos sostendrá.`
             
             mostrarListaDropdown();
             
-            // Si el himno seleccionado actual no está en filtrados, limpiar visor
             if (himnoSeleccionado && !himnosFiltrados.includes(himnoSeleccionado)) {
                 himnoSeleccionado = null;
                 actualizarTituloBarra();
@@ -9894,10 +9909,8 @@ Y con sus brazos nos sostendrá.`
             const urlParams = new URLSearchParams(window.location.search);
             const slug = urlParams.get('himno');
             
-            // Configurar evento de búsqueda en tiempo real
             document.getElementById('buscarInterno').addEventListener('input', buscarInterno);
             
-            // Permitir seleccionar con Enter
             document.getElementById('buscarInterno').addEventListener('keyup', function(e) {
                 if (e.key === 'Enter' && himnosFiltrados.length > 0) {
                     seleccionarHimno(himnosFiltrados[0].slug);
@@ -9920,6 +9933,6 @@ Y con sus brazos nos sostendrá.`
                 cerrarSelector();
             }
         });
-    </script>
-</body>
+        ‹/script>
+</ body>
 </html>
