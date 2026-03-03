@@ -9866,44 +9866,57 @@ Y con sus brazos nos sostendrá.`
                 }
             });
             
-            visor.innerHTML = `
-                <div class="visor-header">
-                    <div class="visor-numero">HIMNO ${numReal}</div>
-                    <h2 class="visor-titulo">${himno.titulo}</h2>
-                    <div class="visor-autor">${himno.autores || himno.fuente || ''}</div>
-                </div>
-                <div class="visor-letra">
-                    ${letraHtml}
-                </div>
-            `;
+visor.innerHTML = `
+    <div class="visor-header">
+        <div class="visor-numero">CÁNTICO ${numReal}</div>
+        <h2 class="visor-titulo">${himno.titulo}</h2>
+        <div class="visor-autor">${himno.autores || himno.fuente || ''}</div>
+    </div>
+    <div class="visor-letra">
+        ${letraHtml}
+    </div>
+`;
             
             actualizarTituloBarra();
             mostrarListaDropdown();
             history.pushState(null, '', `?himno=${himno.slug}`);
         }
 
-        // ===== BÚSQUEDA =====
-        function buscarHimnos() {
-            const texto = document.getElementById('buscarInput').value.toLowerCase();
-            
-            if (texto === '') {
-                himnosFiltrados = [...himnos];
-            } else {
-                himnosFiltrados = himnos.filter(himno => 
-                    himno.titulo.toLowerCase().includes(texto) ||
-                    (himno.autores && himno.autores.toLowerCase().includes(texto)) ||
-                    (himno.fuente && himno.fuente.toLowerCase().includes(texto))
-                );
-            }
-            
-            mostrarListaDropdown();
-            
-            if (himnoSeleccionado && !himnosFiltrados.includes(himnoSeleccionado)) {
-                himnoSeleccionado = null;
-                actualizarTituloBarra();
-                document.getElementById('visor-himno').innerHTML = '<div class="no-seleccionado">👆 Selecciona un himno de la lista</div>';
-            }
+        // ===== BÚSQUEDA (ahora busca por número exacto o texto) =====
+function buscarHimnos() {
+    const texto = document.getElementById('buscarInput').value.trim();
+    
+    if (texto === '') {
+        himnosFiltrados = [...himnos];
+    } else {
+        // Verificar si el texto es un número (entero positivo)
+        const esNumero = /^\d+$/.test(texto);
+        
+        if (esNumero) {
+            const numeroBuscado = parseInt(texto, 10);
+            // Buscar himno cuyo número de orden (posición+1) coincida exactamente
+            himnosFiltrados = himnos.filter((himno, index) => {
+                return (index + 1) === numeroBuscado;
+            });
+        } else {
+            // Búsqueda por texto (título, autor o fuente)
+            himnosFiltrados = himnos.filter(himno => 
+                himno.titulo.toLowerCase().includes(texto.toLowerCase()) ||
+                (himno.autores && himno.autores.toLowerCase().includes(texto.toLowerCase())) ||
+                (himno.fuente && himno.fuente.toLowerCase().includes(texto.toLowerCase()))
+            );
         }
+    }
+    
+    mostrarListaDropdown();
+    
+    // Si el himno seleccionado actual no está en filtrados, limpiar visor
+    if (himnoSeleccionado && !himnosFiltrados.includes(himnoSeleccionado)) {
+        himnoSeleccionado = null;
+        actualizarTituloBarra();
+        document.getElementById('visor-himno').innerHTML = '<div class="no-seleccionado">👆 Selecciona un himno de la lista</div>';
+    }
+}
 
         // ===== INICIALIZACIÓN =====
         window.onload = function() {
