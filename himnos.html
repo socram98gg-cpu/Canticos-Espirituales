@@ -9866,16 +9866,16 @@ Y con sus brazos nos sostendrá.`
                 }
             });
             
-            visor.innerHTML = `
-                <div class="visor-header">
-                    <div class="visor-numero">HIMNO ${numReal}</div>
-                    <h2 class="visor-titulo">${himno.titulo}</h2>
-                    <div class="visor-autor">${himno.autores || himno.fuente || ''}</div>
-                </div>
-                <div class="visor-letra">
-                    ${letraHtml}
-                </div>
-            `;
+         visor.innerHTML = `
+    <div class="visor-header">
+        <div class="visor-numero">HIMNO ${numReal}</div>
+        <h2 class="visor-titulo">${himno.titulo}</h2>
+        <div class="visor-autor">${himno.autores || himno.fuente || ''}</div>
+    </div>
+    <div class="visor-letra">
+        ${letraHtml}
+    </div>
+`;
             
             actualizarTituloBarra();
             mostrarListaDropdown();
